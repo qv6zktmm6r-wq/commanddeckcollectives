@@ -10,3 +10,5 @@ Thumbs.db
 .shopify
 node_modules
 *.zip
+# Theme upload package (scripts/package-theme.sh)
+build/

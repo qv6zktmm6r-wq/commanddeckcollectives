@@ -5,7 +5,10 @@ This repository is a complete Shopify Online Store 2.0 theme built on Dawn, plus
 
 ## Before touching the live store
 1. Export or duplicate the current live Shopify theme.
-2. Upload this repository as a new **unpublished** theme (for example `shopify theme push --unpublished`, or connect the GitHub branch in Online Store → Themes).
+2. Add this theme as a new **unpublished** theme, using any one of these:
+   - Run `./scripts/package-theme.sh`, then in Shopify admin go to Online Store → Themes → Add theme → Upload zip file and choose `build/command-deck-theme.zip`. Uploaded themes are never published automatically.
+   - `shopify theme push --unpublished --store fs8r63-zc.myshopify.com` (asks you to sign in to Shopify).
+   - Online Store → Themes → Add theme → Connect from GitHub, then pick this repository and branch.
 3. Create a Shopify page with the handle `custom-project` and assign the `page.custom-project` template.
 4. In the theme editor, check the homepage:
    - Each "Featured product" block should point at the right product (the defaults are the three coin handles). Empty or unpublished products fall back to the bundled photos.

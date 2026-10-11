@@ -127,10 +127,17 @@
       <ul class="gallery-grid">
         {%- for block in gallery_blocks -%}
           {%- if block.settings.image != blank -%}
-            {%- assign gallery_alt = block.settings.image.alt | default: block.settings.caption -%}
+            {%- liquid
+              assign gallery_alt = block.settings.image.alt | default: ''
+              if gallery_alt == block.settings.caption
+                assign gallery_alt = ''
+              endif
+            -%}
             <li class="gallery-item" {{ block.shopify_attributes }}>
-              {{ block.settings.image | image_url: width: 900 | image_tag: widths: '450, 675, 900', sizes: '(max-width: 700px) 50vw, 25vw', loading: 'lazy', alt: gallery_alt }}
-              {%- if block.settings.caption != blank -%}<p class="gallery-caption">{{ block.settings.caption | escape }}</p>{%- endif -%}
+              <figure>
+                {{ block.settings.image | image_url: width: 900 | image_tag: widths: '450, 675, 900', sizes: '(max-width: 700px) 50vw, 25vw', loading: 'lazy', alt: gallery_alt }}
+                {%- if block.settings.caption != blank -%}<figcaption class="gallery-caption">{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
+              </figure>
             </li>
           {%- endif -%}
         {%- endfor -%}
@@ -252,7 +259,7 @@
       "limit": 12,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Photo" },
-        { "type": "text", "id": "caption", "label": "Caption", "info": "Also used as the image description when the photo has no alt text." }
+        { "type": "text", "id": "caption", "label": "Caption", "info": "Shown under the photo. Add alt text to the image itself to describe what it shows." }
       ]
     },
     {
