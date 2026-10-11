@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Command Deck Owner</title>
   <meta name="robots" content="noindex,nofollow">
@@ -39,9 +40,13 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12l2 5v15H4V7Z"/><path d="M4 7h16M9 11h6"/></svg>
         <strong>Orders</strong><span>New, unfulfilled and past orders</span>
       </a>
-      <a class="tile primary" href="https://mail.google.com/mail/u/0/#search/%22New+customer+message%22">
+      <a class="tile primary" href="board.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="11" rx="1"/><rect x="17" y="4" width="4" height="7" rx="1"/></svg>
+        <strong>Custom-order board</strong><span>Requests, quotes and deadlines</span>
+      </a>
+      <a class="tile" href="https://mail.google.com/mail/u/0/#search/%22New+customer+message%22">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
-        <strong>Custom-order requests</strong><span>Website form emails, in Gmail</span>
+        <strong>Request emails</strong><span>Website form emails, in Gmail</span>
       </a>
     </div>
   </section>
@@ -94,33 +99,8 @@
     </div>
   </section>
 
-  <p class="owner-note">Each button opens Shopify, Gmail or Instagram, which ask you to sign in there. This app stores no passwords or customer information. The photo and website editors change the live theme, so the Our Work editor works once the new Command Deck theme is published.</p>
+  <p class="owner-note">The custom-order board keeps requests in your private Supabase database and needs your owner sign-in. The other buttons open Shopify, Gmail or Instagram, which ask you to sign in there. The photo and website editors change the live theme, so the Our Work editor works once the new Command Deck theme is published.</p>
 </main>
-<script>
-  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  if (!standalone) {
-    const help = document.querySelector('[data-install-help]');
-    help.hidden = false;
-    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const android = /android/i.test(navigator.userAgent);
-    if (ios) help.querySelector('[data-install-android]').hidden = true;
-    if (android) help.querySelector('[data-install-ios]').hidden = true;
-    const button = help.querySelector('[data-install-button]');
-    let deferred;
-    addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault();
-      deferred = event;
-      button.hidden = false;
-    });
-    button.addEventListener('click', async () => {
-      if (!deferred) return;
-      deferred.prompt();
-      await deferred.userChoice;
-      deferred = null;
-      button.hidden = true;
-    });
-  }
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('owner-sw.js');
-</script>
+<script src="owner.js"></script>
 </body>
 </html>

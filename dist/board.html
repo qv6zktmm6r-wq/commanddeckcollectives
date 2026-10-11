@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Custom Orders · Command Deck Owner</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://tfavgqqqagcqhfeeutzc.supabase.co wss://tfavgqqqagcqhfeeutzc.supabase.co; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+  <meta name="theme-color" content="#050505">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="CD Owner">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="owner.webmanifest">
+  <link rel="icon" href="assets/command-deck-favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/command-deck-apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/owner.css?v=2">
+  <link rel="stylesheet" href="assets/owner-board.css?v=2">
+</head>
+<body>
+<main class="owner board-page">
+  <header class="board-head">
+    <a class="back-link" href="owner.html"><span aria-hidden="true">‹</span> Owner</a>
+    <h1>Custom orders</h1>
+    <button class="text-btn" type="button" data-sign-out hidden>Sign out</button>
+  </header>
+
+  <p class="banner" data-offline hidden role="status">You’re offline. Changes need a connection.</p>
+  <p class="banner error" data-error hidden role="alert"></p>
+
+  <section class="auth-card" data-view="loading" aria-busy="true">
+    <p class="muted">Loading…</p>
+  </section>
+
+  <section class="auth-card" data-view="sign-in" hidden aria-labelledby="sign-in-h">
+    <h2 id="sign-in-h">Owner sign-in</h2>
+    <form data-sign-in-form novalidate>
+      <label for="si-email">Email</label>
+      <input id="si-email" name="email" type="email" autocomplete="username" inputmode="email" required>
+      <label for="si-password">Password</label>
+      <input id="si-password" name="password" type="password" autocomplete="current-password" required>
+      <button class="btn primary" type="submit">Sign in</button>
+    </form>
+    <button class="text-btn" type="button" data-forgot>Forgot password?</button>
+    <p class="muted small" data-auth-message role="status"></p>
+  </section>
+
+  <section class="auth-card" data-view="set-password" hidden aria-labelledby="set-pw-h">
+    <h2 id="set-pw-h">Set a new password</h2>
+    <form data-set-password-form novalidate>
+      <label for="np-password">New password (at least 12 characters)</label>
+      <input id="np-password" name="password" type="password" autocomplete="new-password" minlength="12" required>
+      <button class="btn primary" type="submit">Save password</button>
+    </form>
+    <p class="muted small" data-set-password-message role="status"></p>
+  </section>
+
+  <section class="auth-card" data-view="no-access" hidden aria-labelledby="no-access-h">
+    <h2 id="no-access-h">No access</h2>
+    <p class="muted">This account isn’t set up as an owner of the custom-order board.</p>
+  </section>
+
+  <section data-view="board" hidden aria-labelledby="board-h">
+    <h2 id="board-h" class="visually-hidden">Order board</h2>
+    <div class="stats" data-stats></div>
+    <div class="toolbar">
+      <label class="visually-hidden" for="search">Search orders</label>
+      <input id="search" type="search" placeholder="Search name, email, item…" data-search autocomplete="off">
+      <button class="btn primary" type="button" data-new>+ New</button>
+      <button class="btn" type="button" data-paste>Paste email</button>
+    </div>
+    <nav class="stage-nav" aria-label="Jump to stage" data-stage-nav></nav>
+    <div class="board" data-board></div>
+    <label class="archive-toggle"><input type="checkbox" data-show-archived> Show archived</label>
+  </section>
+</main>
+
+<dialog class="sheet" data-order-dialog aria-labelledby="order-h">
+  <form method="dialog" data-order-form novalidate>
+    <header class="sheet-head">
+      <h2 id="order-h" data-order-title>New request</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">×</button>
+    </header>
+    <div class="fields">
+      <label class="full">Customer name<input name="customer_name" required maxlength="200" autocomplete="off"></label>
+      <label>Email<input name="email" type="email" maxlength="320" autocomplete="off"></label>
+      <label>Phone<input name="phone" type="tel" maxlength="50" autocomplete="off"></label>
+      <label class="full">Unit / business / organization<input name="organization" maxlength="200" autocomplete="off"></label>
+      <label>Project type
+        <input name="project_type" list="project-types" maxlength="100" autocomplete="off">
+      </label>
+      <label>Quantity<input name="quantity" type="number" inputmode="numeric" min="1" max="1000000" step="1"></label>
+      <label>Needed by<input name="needed_by" type="date"></label>
+      <label>Budget
+        <input name="budget" list="budgets" maxlength="100" autocomplete="off">
+      </label>
+      <label>Your quote ($)<input name="quote" type="number" inputmode="decimal" min="0" step="0.01"></label>
+      <label>Stage<select name="stage" data-stage-select></select></label>
+      <label class="full">Project details<textarea name="details" rows="4" maxlength="20000"></textarea></label>
+      <label class="full">Private notes<textarea name="notes" rows="3" maxlength="20000" placeholder="Only you see these"></textarea></label>
+    </div>
+    <p class="muted small" data-order-meta></p>
+    <p class="banner error" data-order-error hidden role="alert"></p>
+    <footer class="sheet-actions">
+      <button class="btn primary" type="submit" value="save">Save</button>
+      <a class="btn" data-email-customer hidden>Email customer</a>
+      <button class="btn danger" type="button" data-delete hidden>Delete</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog class="sheet" data-paste-dialog aria-labelledby="paste-h">
+  <form method="dialog" data-paste-form>
+    <header class="sheet-head">
+      <h2 id="paste-h">Paste a request email</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">×</button>
+    </header>
+    <label class="full" for="paste-text">Copy the “New customer message” email from Gmail and paste it here. The details fill in a new card for you to check.</label>
+    <textarea id="paste-text" name="text" rows="10" required></textarea>
+    <footer class="sheet-actions">
+      <button class="btn primary" type="submit" value="parse">Fill in card</button>
+    </footer>
+  </form>
+</dialog>
+
+<datalist id="project-types">
+  <option value="Challenge coins"></option>
+  <option value="Apparel &amp; merchandise"></option>
+  <option value="Awards &amp; recognition"></option>
+  <option value="Bulk order"></option>
+  <option value="Custom project"></option>
+</datalist>
+<datalist id="budgets">
+  <option value="Under $500"></option>
+  <option value="$500 – $1,500"></option>
+  <option value="$1,500 – $5,000"></option>
+  <option value="$5,000+"></option>
+  <option value="Not sure yet"></option>
+</datalist>
+
+<script src="supabase-2.117.2.js"></script>
+<script src="board-config.js"></script>
+<script src="assets/owner-board-parse.js?v=1"></script>
+<script src="assets/owner-board.js?v=2"></script>
+</body>
+</html>
