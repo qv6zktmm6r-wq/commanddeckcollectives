@@ -8,7 +8,7 @@ mkdir -p dist/assets
 for page in preview/*.html preview/*.webmanifest; do
   sed 's#\.\./assets/#assets/#g' "$page" > "dist/$(basename "$page")"
 done
-cp preview/*.js dist/
+cp preview/*.js preview/vercel.json dist/
 
 # assets/ also holds the Shopify theme's files; copy only what the static pages, manifest and stylesheet use.
 for file in assets/*; do
