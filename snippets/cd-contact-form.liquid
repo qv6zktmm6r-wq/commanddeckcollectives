@@ -1,0 +1,43 @@
+{%- comment -%}
+  Custom-order request form posted to the Shopify contact flow.
+  Params: form_id (required, unique per page), placeholder (textarea prompt), submit_label.
+  Mirrors the preview form in preview/index.html; keep the two field lists in sync.
+{%- endcomment -%}
+{%- form 'contact', class: 'contact-form', id: form_id -%}
+  {%- if form.posted_successfully? -%}
+    <p class="form-status full" role="status">Thanks — your project request was sent. Command Deck will follow up by email.</p>
+  {%- elsif form.errors -%}
+    <div class="form-status error full" role="alert">{{ form.errors | default_errors }}</div>
+  {%- endif -%}
+  <label class="visually-hidden" for="{{ form_id }}-name">Name</label>
+  <input id="{{ form_id }}-name" name="contact[name]" autocomplete="name" placeholder="Name" value="{{ form.name | escape }}" required>
+  <label class="visually-hidden" for="{{ form_id }}-email">Email</label>
+  <input id="{{ form_id }}-email" name="contact[email]" type="email" autocomplete="email" placeholder="Email" value="{{ form.email | escape }}" required>
+  <label class="visually-hidden" for="{{ form_id }}-org">Unit, business or organization</label>
+  <input id="{{ form_id }}-org" name="contact[organization]" autocomplete="organization" placeholder="Unit / business / organization">
+  <label class="visually-hidden" for="{{ form_id }}-type">Project type</label>
+  <select id="{{ form_id }}-type" name="contact[project_type]">
+    <option value="" selected>Project type</option>
+    <option>Challenge coins</option>
+    <option>Apparel &amp; merchandise</option>
+    <option>Awards &amp; recognition</option>
+    <option>Bulk order</option>
+    <option>Custom project</option>
+  </select>
+  <label class="visually-hidden" for="{{ form_id }}-quantity">Estimated quantity</label>
+  <input id="{{ form_id }}-quantity" name="contact[quantity]" inputmode="numeric" placeholder="Estimated quantity">
+  <label class="visually-hidden" for="{{ form_id }}-needed-by">Needed-by date</label>
+  <input id="{{ form_id }}-needed-by" name="contact[needed_by]" placeholder="Needed-by date">
+  <label class="visually-hidden" for="{{ form_id }}-budget">Budget range</label>
+  <select id="{{ form_id }}-budget" class="full" name="contact[budget]">
+    <option value="" selected>Budget range</option>
+    <option>Under $500</option>
+    <option>$500 – $1,500</option>
+    <option>$1,500 – $5,000</option>
+    <option>$5,000+</option>
+    <option>Not sure yet</option>
+  </select>
+  <label class="visually-hidden" for="{{ form_id }}-body">Project details</label>
+  <textarea id="{{ form_id }}-body" class="full" name="contact[body]" placeholder="{{ placeholder | default: 'Tell us about the project and what you want it to represent.' }}" required>{{ form.body | escape }}</textarea>
+  <button class="btn primary full" type="submit">{{ submit_label | default: 'Start a Custom Project' }} →</button>
+{%- endform -%}

@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h3l3 13h11l3-9H6"/><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg>
+{%- if cart.item_count > 0 -%}
+  <span class="cart-count" aria-hidden="true">{% if cart.item_count < 100 %}{{ cart.item_count }}{% else %}99+{% endif %}</span>
+{%- endif -%}
+<span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>

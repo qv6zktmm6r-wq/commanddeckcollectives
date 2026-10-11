@@ -1,2 +1,93 @@
-
-{"sections":{"main":{"type":"command-deck-home","settings":{"eyebrow":"Custom products. Meaningful impact. Built to last.","headline_line_1":"Your Story","headline_line_2":"In Every Detail.","lede":"Custom challenge coins, apparel, awards, engraved products, and premium merchandise for units, businesses, organizations, and individuals — designed to inspire, celebrate and leave a lasting legacy.","primary_label":"Start a Custom Project","primary_link":"shopify://pages/custom-project","secondary_label":"Shop Collections","secondary_link":"shopify://collections/all"},"blocks":{"coins":{"type":"service","settings":{"title":"Challenge Coins","text":"Custom designs. Lasting impact.","link":"shopify://pages/custom-project"}},"apparel":{"type":"service","settings":{"title":"Apparel & Merchandise","text":"Wear the story.","link":"shopify://pages/custom-project"}},"awards":{"type":"service","settings":{"title":"Awards & Recognition","text":"Honor what matters.","link":"shopify://pages/custom-project"}},"bulk":{"type":"service","settings":{"title":"Bulk Orders","text":"Custom. Consistent. High impact.","link":"shopify://pages/custom-project"}},"custom":{"type":"service","settings":{"title":"Custom Projects","text":"Your vision. Our craftsmanship.","link":"shopify://pages/custom-project"}}},"block_order":["coins","apparel","awards","bulk","custom"]}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "command-deck-home",
+      "settings": {
+        "eyebrow": "Custom products. Meaningful impact. Built to last.",
+        "headline_line_1": "Your Story",
+        "headline_line_2": "In Every Detail.",
+        "lede": "Custom challenge coins, apparel, awards, engraved products, and premium merchandise for units, businesses, organizations, and individuals \u2014 designed to inspire, celebrate and leave a lasting legacy.",
+        "primary_label": "Start a Custom Project",
+        "primary_link": "shopify://pages/custom-project",
+        "secondary_label": "Shop Collections",
+        "secondary_link": "shopify://collections/all"
+      },
+      "blocks": {
+        "coins": {
+          "type": "service",
+          "settings": {
+            "title": "Challenge Coins",
+            "text": "Custom designs. Lasting impact.",
+            "link": "shopify://pages/custom-project"
+          }
+        },
+        "apparel": {
+          "type": "service",
+          "settings": {
+            "title": "Apparel & Merchandise",
+            "text": "Wear the story.",
+            "link": "shopify://pages/custom-project"
+          }
+        },
+        "awards": {
+          "type": "service",
+          "settings": {
+            "title": "Awards & Recognition",
+            "text": "Honor what matters.",
+            "link": "shopify://pages/custom-project"
+          }
+        },
+        "bulk": {
+          "type": "service",
+          "settings": {
+            "title": "Bulk Orders",
+            "text": "Custom. Consistent. High impact.",
+            "link": "shopify://pages/custom-project"
+          }
+        },
+        "custom": {
+          "type": "service",
+          "settings": {
+            "title": "Custom Projects",
+            "text": "Your vision. Our craftsmanship.",
+            "link": "shopify://pages/custom-project"
+          }
+        },
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "product": "aav-legacy-challenge-coin",
+            "text": "A tribute to five generations of Marine Corps amphibious vehicles."
+          }
+        },
+        "product_2": {
+          "type": "product",
+          "settings": {
+            "product": "aztec-ega-collector-coin",
+            "text": "Aztec-inspired detail meets the Eagle, Globe, and Anchor."
+          }
+        },
+        "product_3": {
+          "type": "product",
+          "settings": {
+            "product": "lvt-2-water-buffalo-challenge-coin",
+            "text": "A collectible honoring the Water Buffalo and its amphibious heritage."
+          }
+        }
+      },
+      "block_order": [
+        "coins",
+        "apparel",
+        "awards",
+        "bulk",
+        "custom",
+        "product_1",
+        "product_2",
+        "product_3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

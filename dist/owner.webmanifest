@@ -1,0 +1,17 @@
+{
+  "id": "./owner.html",
+  "name": "Command Deck Owner",
+  "short_name": "CD Owner",
+  "description": "Owner shortcuts for Command Deck Collective: orders, custom-order requests, products, stats and website photos.",
+  "start_url": "./owner.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    { "src": "assets/owner-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/owner-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/owner-icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

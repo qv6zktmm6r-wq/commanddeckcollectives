@@ -2,7 +2,7 @@
 # Approved Visual Direction
 
 ## Brand
-Command Deck Collectives LLC
+Command Deck Collective LLC
 
 Use the owner-provided black-and-gold crest logo as the primary brand mark. Do not redesign or replace it.
 
