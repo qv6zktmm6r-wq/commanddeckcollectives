@@ -1,0 +1,75 @@
+/* Command Deck owner app (preview/owner.html) */
+
+:root {
+  --ink: #050505;
+  --panel: #0e0c09;
+  --gold: #d9ad46;
+  --gold-bright: #f1cf70;
+  --line: rgba(215, 165, 42, .28);
+  --copy: #bdb7ad;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(120% 60% at 50% 0, #17130b, var(--ink) 60%);
+  color: #fff;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+.owner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: calc(18px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left));
+}
+.owner-head { display: flex; align-items: center; gap: 14px; padding: 8px 0 22px; border-bottom: 1px solid var(--line); }
+.owner-head img { width: 64px; height: 64px; border-radius: 14px; border: 1px solid var(--line); }
+.owner-kicker { margin: 0 0 2px; color: var(--gold-bright); font-size: 12px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+.owner-head h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; font-weight: 500; line-height: 1.05; }
+
+section { margin-top: 26px; }
+h2 { margin: 0 0 12px; color: var(--copy); font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 118px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  color: #fff;
+  text-decoration: none;
+  transition: background .15s ease, border-color .15s ease;
+}
+.tile:hover,
+.tile:active { border-color: rgba(241, 207, 112, .6); background: #18140c; }
+.tile:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+.tile svg { width: 28px; height: 28px; margin-bottom: 8px; fill: none; stroke: var(--gold-bright); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tile strong { font-size: 16px; font-weight: 700; line-height: 1.25; }
+.tile span { color: var(--copy); font-size: 13px; line-height: 1.35; overflow-wrap: anywhere; }
+@media (max-width: 619px) {
+  .tile:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 0; }
+}
+.tile.primary { background: linear-gradient(160deg, #2a210f, #110e08 70%); border-color: rgba(241, 207, 112, .5); }
+
+.install-card { margin-top: 20px; padding: 16px 18px; border: 1px dashed var(--line); border-radius: 14px; background: #0b0a08; }
+.install-card h2 { margin-bottom: 8px; color: var(--gold-bright); }
+.install-card p { margin: 6px 0; color: var(--copy); font-size: 14px; line-height: 1.5; }
+.install-card strong { color: #fff; }
+.key { padding: 1px 7px; border: 1px solid var(--line); border-radius: 6px; color: #fff; white-space: nowrap; }
+.install-btn { margin-top: 10px; min-height: 46px; padding: 0 20px; border: 0; border-radius: 10px; background: linear-gradient(180deg, var(--gold-bright), var(--gold)); color: #111; font: 700 14px/1 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: .04em; cursor: pointer; }
+.install-btn[hidden] { display: none; }
+
+.owner-note { margin: 30px 0 0; color: #8f897f; font-size: 12px; line-height: 1.6; }
+
+@media (min-width: 620px) {
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile { transition: none; }
+}
