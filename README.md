@@ -38,7 +38,7 @@ Shopping links open the existing Shopify product pages for current pricing, avai
 
 ## Logo
 
-`assets/command-deck-logo.webp` (1036×920) and `command-deck-logo-518.webp` are 4× upscales of the original 259×230 crest, made with Real-ESRGAN and then color-matched back to the original so the artwork, colors and wording are unchanged. Downscaled back to 259×230 the HD file matches the original at about 32 dB PSNR. The original is kept in `docs/brand/command-deck-logo-original-259.webp`, with a lossless HD master in `docs/brand/command-deck-logo-hd-1036.png`.
+`assets/command-deck-logo.webp` (1036×920) and `command-deck-logo-518.webp` are 4× upscales of the original 259×230 crest, made with Real-ESRGAN and then color-matched back to the original so the artwork, colors and wording are unchanged. Downscaled back to 259×230 the HD file matches the original at about 32 dB PSNR. The wordmark line was then changed from "COMMAND DECK COLLECTIVE, LLC" to "COMMAND DECK COLLECTIVE" by removing ", LLC" and re-centering the original lettering under the crest (no letters were redrawn). The original is kept in `docs/brand/command-deck-logo-original-259.webp`, with a lossless HD master in `docs/brand/command-deck-logo-hd-1036.png`.
 
 ## Source snapshot
 
