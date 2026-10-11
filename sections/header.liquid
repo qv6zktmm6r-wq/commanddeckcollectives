@@ -1,0 +1,43 @@
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href="{{ routes.root_url }}">
+      <span class="brand-mark"><img src="{{ 'command-deck-logo.webp' | asset_url }}" alt="" width="259" height="230"></span>
+      <span class="brand-label">Command Deck<br>Collectives, LLC</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="{{ routes.root_url }}"{% if template.name == 'index' %} class="active" aria-current="page"{% endif %}>Home</a>
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <a href="/pages/custom-project"{% if template.suffix == 'custom-project' %} class="active" aria-current="page"{% endif %}>Custom Orders</a>
+      <a href="{{ routes.root_url }}#services">Services</a>
+      <a href="{{ routes.collections_url }}">Collections</a>
+      <a href="{{ routes.root_url }}#our-work">Our Work</a>
+      <a href="{{ routes.root_url }}#about">About</a>
+      <a href="{{ routes.root_url }}#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collectives on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""></a>
+      <a aria-label="Search" href="{{ routes.search_url }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg></a>
+      <a aria-label="Account" href="{{ routes.account_url }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M3 21v-2a9 9 0 0 1 18 0v2Z"/></svg></a>
+      <a aria-label="Cart ({{ cart.item_count }} items)" href="{{ routes.cart_url }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h3l3 13h11l3-9H6"/><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg></a>
+    </div>
+    <button class="menu-toggle" type="button" data-menu-toggle aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+  </div>
+  <nav class="mobile-panel" id="mobile-menu" data-mobile-panel aria-label="Mobile navigation">
+    <a href="{{ routes.root_url }}">Home</a>
+    <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    <a href="/pages/custom-project">Custom Orders</a>
+    <a href="{{ routes.root_url }}#services">Services</a>
+    <a href="{{ routes.collections_url }}">Collections</a>
+    <a href="{{ routes.root_url }}#our-work">Our Work</a>
+    <a href="{{ routes.root_url }}#about">About</a>
+    <a href="{{ routes.root_url }}#contact">Contact</a>
+    <a href="{{ routes.search_url }}">Search</a>
+    <a href="{{ routes.account_url }}">Account</a>
+    <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+    <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collectives on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""><span>@commanddeckllc</span></a>
+  </nav>
+</header>
+
+{% schema %}
+{ "name": "Header", "settings": [] }
+{% endschema %}

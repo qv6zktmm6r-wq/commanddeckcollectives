@@ -1,2 +1,10 @@
-
-[{"name":"theme_info","theme_name":"Command Deck Collectives","theme_version":"1.0.0","theme_author":"Keystone Group Holdings","theme_documentation_url":"https://github.com/qv6zktmm6r-wq/commanddeckcollectives"}]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Command Deck Collectives",
+    "theme_version": "1.1.0",
+    "theme_author": "Keystone Group Holdings",
+    "theme_documentation_url": "https://github.com/qv6zktmm6r-wq/commanddeckcollectives",
+    "theme_support_url": "https://github.com/qv6zktmm6r-wq/commanddeckcollectives/issues"
+  }
+]

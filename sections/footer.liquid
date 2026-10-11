@@ -1,0 +1,11 @@
+<footer class="footer">
+  <div class="shell footer-grid">
+    <img class="footer-logo" src="{{ 'command-deck-logo.webp' | asset_url }}" alt="{{ shop.name | escape }}" width="259" height="230" loading="lazy">
+    <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collectives on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""><span>@commanddeckllc</span></a>
+    <small>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</small>
+  </div>
+</footer>
+
+{% schema %}
+{ "name": "Footer", "settings": [] }
+{% endschema %}

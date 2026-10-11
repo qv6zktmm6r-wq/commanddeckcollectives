@@ -9,7 +9,7 @@ This repository is structured as a Shopify Online Store theme and includes a sta
 3. Upload or connect this repository to that unpublished theme.
 4. Create a Shopify page with the handle custom-project and assign the page.custom-project template.
 5. In the theme editor, verify the homepage buttons and service-card links.
-6. Replace generic service artwork with approved product photography when the owner provides it.
+6. Replace generic service artwork with approved product photography when the owner provides it (each homepage Service block has an Image picker; empty blocks fall back to the bundled art).
 7. Test desktop, mobile, cart, search, account links, contact-form delivery and collection links.
 8. Only publish after owner approval.
 
