@@ -43,6 +43,8 @@ Shopping links open the existing Shopify product pages for current pricing, avai
 
 `assets/command-deck-logo.webp` (1036×920) and `command-deck-logo-518.webp` are 4× upscales of the original 259×230 crest, made with Real-ESRGAN and then color-matched back to the original so the artwork, colors and wording are unchanged. Downscaled back to 259×230 the HD file matches the original at about 32 dB PSNR. The wordmark line was then changed from "COMMAND DECK COLLECTIVE, LLC" to "COMMAND DECK COLLECTIVE" by removing ", LLC" and re-centering the original lettering under the crest (no letters were redrawn). The original is kept in `docs/brand/command-deck-logo-original-259.webp`, with a lossless HD master in `docs/brand/command-deck-logo-hd-1036.png`. `docs/brand/command-deck-logo-transparent-1036.png` (and `.webp`) is a transparent-background version for light backgrounds, merch and print; its pale wordmark has low contrast on white or gold. `docs/brand/share-card.html` is the source for the share image.
 
+The coin mockup in `assets/hero-workshop.webp` and `assets/approved-product-reference.webp` had the same rim text. Its ", LLC" was removed the same way: the remaining original lettering was shifted along the rim to stay centered under the laurel. Only the rim lettering changed; the rest of each image is untouched apart from re-encoding.
+
 Smaller copies used for phones and small slots: `*-480.webp` (category art), `*-coin-500.webp` (coin photos) and `command-deck-logo-160.webp` (header).
 
 ## Source snapshot
