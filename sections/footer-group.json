@@ -4,7 +4,9 @@
   "sections": {
     "cd-footer": {
       "type": "cd-footer",
-      "settings": {}
+      "settings": {
+        "legal_name": "Command Deck Collective LLC"
+      }
     }
   },
   "order": [
