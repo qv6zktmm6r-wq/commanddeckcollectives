@@ -431,6 +431,106 @@ textarea:focus-visible {
   outline-offset: 4px;
 }
 
+/* Store pages (Dawn product, collection, search, cart, 404).
+   Dawn loads section stylesheets after this file, so these rules are scoped to #MainContent to win
+   without !important; Command Deck sections use their own class names and are unaffected. */
+
+#MainContent :is(.title, .main-page-title, .collection-hero__title, .template-search__header h1, .cart__empty-text, .template-404 h1) {
+  color: #fff;
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: normal;
+}
+#MainContent :is(.related-products__heading, .totals__total) { font-family: var(--serif); font-weight: 500; }
+#MainContent .related-products__heading { font-size: clamp(30px, 3vw, 42px); }
+#MainContent :is(.product__text.caption-with-letter-spacing, .template-404__code) {
+  margin: 0 0 12px;
+  color: var(--gold-bright);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+#MainContent :is(.button:not(.button--tertiary), .shopify-payment-button__button--unbranded) {
+  min-height: 54px;
+  padding: 0 28px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+#MainContent :is(.button:not(.button--secondary, .button--tertiary), .shopify-payment-button__button--unbranded) {
+  background: linear-gradient(180deg, #f1c658, #c99422);
+  color: #090806;
+  box-shadow: 0 10px 35px rgba(211, 157, 28, .16);
+}
+#MainContent .button:not(.button--tertiary)::after,
+#MainContent .button:not(.button--tertiary):hover::after { box-shadow: 0 0 0 1px #e7b53a; }
+#MainContent .button--secondary { background: rgba(0, 0, 0, .25); color: var(--gold-bright); }
+#MainContent .button--secondary::after { box-shadow: 0 0 0 1px var(--gold); }
+#MainContent :is(.button:not(.button--tertiary, [disabled], [aria-disabled="true"]), .shopify-payment-button__button--unbranded):hover { filter: brightness(1.08); }
+
+#MainContent .price { color: var(--gold-bright); letter-spacing: .04em; }
+#MainContent .price .price-item { font-weight: 600; }
+#MainContent .price--on-sale .price__sale s { color: var(--copy); }
+#MainContent .badge { border-radius: 0; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+#MainContent .product__title h1 { color: #f2e2bb; font-size: clamp(34px, 3.6vw, 52px); font-weight: 400; line-height: 1.08; }
+#MainContent .product__description { color: var(--copy); font-size: 15px; line-height: 1.75; }
+#MainContent .product__media-list .global-media-settings { border: 1px solid var(--line); background: #14120f; }
+#MainContent .share-button__button { color: var(--gold-bright); }
+#MainContent .product-form__input input[type="radio"] + label {
+  border-color: rgba(215, 165, 42, .45);
+  border-radius: 0;
+  background: #0b0a09;
+  color: #fff;
+  font-weight: 600;
+}
+#MainContent .product-form__input input[type="radio"] + label:hover { border-color: var(--gold); }
+#MainContent .product-form__input input[type="radio"]:checked + label {
+  border-color: #e7b53a;
+  background: linear-gradient(180deg, #f1c658, #c99422);
+  color: #090806;
+}
+#MainContent :is(.quantity, .field, .select)::after { box-shadow: 0 0 0 1px rgba(215, 165, 42, .45); }
+#MainContent :is(.quantity, .field, .select):hover::after { box-shadow: 0 0 0 1px var(--gold); }
+#MainContent :is(.quantity, .field__input, .select__select) { background: #0b0a09; }
+
+#MainContent .grid__item > product-component { display: block; height: 100%; }
+#MainContent .product-card-wrapper .card--standard { height: 100%; border: 1px solid var(--line); background: #0b0a09; transition: border-color .2s ease; }
+#MainContent .product-card-wrapper:hover .card--standard { border-color: var(--gold); }
+#MainContent .product-card-wrapper .card__inner { background: #14120f; }
+#MainContent .product-card-wrapper .card__media img { object-fit: contain; }
+#MainContent .product-card-wrapper .card--standard > .card__content { padding: 4px 20px 22px; }
+#MainContent .product-card-wrapper .card__heading { color: #f2e2bb; font-family: var(--serif); font-size: 21px; font-weight: 400; line-height: 1.25; }
+#MainContent :is(.product-count__text, .facets__summary, .facet-filters__label) { color: var(--copy); }
+
+#MainContent .cart-item__name { color: #f2e2bb; font-family: var(--serif); font-size: 20px; font-weight: 400; }
+#MainContent .cart-items th { color: var(--gold-bright); }
+#MainContent .cart-item__image { border: 1px solid var(--line); background: #14120f; }
+#MainContent .totals__total-value { color: var(--gold-bright); }
+#MainContent .cart__footer { border-top: 1px solid var(--line); }
+
+#MainContent .template-404 { padding-block: 90px 110px; }
+#MainContent .template-404 .title { margin: 0; }
+#MainContent .template-404__lede { max-width: 460px; margin: 18px auto 0; color: var(--copy); font-size: 16px; line-height: 1.7; }
+#MainContent .template-404__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 13px; margin-top: 30px; }
+
+/* Keep sticky product details below the 76px sticky header. */
+@media (min-width: 750px) {
+  #MainContent .product__column-sticky { top: calc(76px + 2rem); }
+}
+@media (max-width: 749px) {
+  #MainContent .product-card-wrapper .card--standard > .card__content { padding: 2px 12px 16px; }
+  #MainContent .product-card-wrapper .card__heading { font-size: 16px; }
+  #MainContent .template-404 { padding-block: 60px 80px; }
+  #MainContent .template-404__actions .button { width: 100%; }
+}
+
 /* Responsive */
 
 @media (min-width: 1640px) {

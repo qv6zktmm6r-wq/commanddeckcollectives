@@ -1,0 +1,17 @@
+{
+  "name": "command-deck-collective-theme",
+  "private": true,
+  "description": "Command Deck Collective Shopify theme (Dawn-based) and static preview",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "node tests/render-sections.js",
+    "theme-check": "npx --yes @shopify/cli@4.9.3 theme check --path . --fail-level error",
+    "build": "bash scripts/build-dist.sh"
+  },
+  "devDependencies": {
+    "liquidjs": "10.30.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
