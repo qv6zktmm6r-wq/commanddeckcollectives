@@ -1,0 +1,2 @@
+
+document.addEventListener('DOMContentLoaded',()=>{const toggle=document.querySelector('[data-menu-toggle]');const panel=document.querySelector('[data-mobile-panel]');if(toggle&&panel){toggle.addEventListener('click',()=>{const isOpen=panel.classList.toggle('open');toggle.setAttribute('aria-expanded',String(isOpen));});panel.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{panel.classList.remove('open');toggle.setAttribute('aria-expanded','false');}));}});

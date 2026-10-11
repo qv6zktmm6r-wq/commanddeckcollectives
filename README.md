@@ -1,5 +1,40 @@
 # Command Deck Collectives LLC
 
-Custom storefront redesign workspace for Command Deck Collectives LLC.
+Complete website source and assets for the approved black-and-gold Command Deck Collectives storefront.
 
-This repository contains the coded website preview, Shopify-ready theme files, brand assets, and design reference for the approved black-and-gold commercial / military-inspired direction.
+## Current preview
+
+https://command-deck-collectives.mejia1604.chatgpt.site
+
+The Sites preview is private to its owner. This repository contains the complete published build, including its source, images and hosting manifest.
+
+## Included
+
+- Approved photographic hero and original crest logo.
+- Five populated category blocks: real Shopify coin photograph plus apparel, awards, bulk-order and custom-project concepts.
+- Three featured Shopify products with original product photos and links to the store.
+- Instagram logo links to @commanddeckllc in the desktop header, mobile menu and footer.
+- Responsive styles, navigation and the custom-project form layout.
+- Shopify Liquid theme files and installation instructions.
+- Static deployment output in `dist/` and source preview in `preview/`.
+
+## Project layout
+
+- `assets/`: shared styles, JavaScript, logo, product photos and generated concept imagery.
+- `preview/index.html`: standalone page source.
+- `dist/`: complete static Site deployment output.
+- `layout/`, `sections/`, `templates/`, `config/`: Shopify theme source.
+- `.openai/hosting.json`: existing Sites identity and static output configuration.
+- `docs/`: visual specifications and asset/source provenance.
+
+To view locally, run `python3 -m http.server 8000` from the repository root and open `http://localhost:8000/preview/`. No dependency installation is required.
+
+After changing the standalone page or assets, refresh `dist/index.html` from `preview/index.html` and `dist/assets/` from `assets/` before deploying Sites. Shopify files use Shopify asset URLs and contact-form handling.
+
+## Integration status
+
+Shopping links open the existing Shopify product pages for current pricing, availability and checkout. The standalone custom-order form remains explicitly preview-only; the Shopify Liquid form uses the store contact flow after theme installation. The live Shopify theme and domain have not been changed. See `SHOPIFY-INSTALL.md`.
+
+## Source snapshot
+
+Synchronized from the deployed Sites source commit `bd69c4ce27a0d80b43280048c8c4a9c563498b98`. Future Sites edits must be synchronized to this repository; automatic two-way synchronization is not configured.

@@ -1,0 +1,25 @@
+{
+  "retrieved_at": "2026-10-10T23:22:00-07:00",
+  "catalog_url": "https://commanddeckcollectives.com/products.json",
+  "instagram_url": "https://www.instagram.com/commanddeckllc/",
+  "products": [
+    {
+      "title": "AAV Legacy Collection",
+      "url": "https://commanddeckcollectives.com/products/aav-legacy-challenge-coin",
+      "original_image": "https://cdn.shopify.com/s/files/1/0992/0253/1648/files/IMG-9743.png?v=1788136231",
+      "local_image": "assets/aav-legacy-challenge-coin.png"
+    },
+    {
+      "title": "Aztec Eagle, Globe and Anchor Collection",
+      "url": "https://commanddeckcollectives.com/products/aztec-ega-collector-coin",
+      "original_image": "https://cdn.shopify.com/s/files/1/0992/0253/1648/files/ACEEF330-84F1-4A34-8E99-449E22DA44A7.png?v=1787055057",
+      "local_image": "assets/aztec-ega-collector-coin.png"
+    },
+    {
+      "title": "LVT-2 Water Buffalo Collection",
+      "url": "https://commanddeckcollectives.com/products/lvt-2-water-buffalo-challenge-coin",
+      "original_image": "https://cdn.shopify.com/s/files/1/0992/0253/1648/files/7B434E4F-DB7F-4DD8-8D3A-6DDDB87960B5.png?v=1783349369",
+      "local_image": "assets/lvt-2-water-buffalo-challenge-coin.png"
+    }
+  ]
+}
