@@ -8,7 +8,7 @@
   <div class="shell header-inner">
     <a class="brand" href="{{ routes.root_url }}">
       <span class="brand-mark"><img src="{{ 'command-deck-logo-518.webp' | asset_url }}" alt="" width="518" height="460"></span>
-      <span class="brand-label">Command Deck<br>Collectives, LLC</span>
+      <span class="brand-label">Command Deck<br>Collective, LLC</span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="{{ routes.all_products_collection_url }}"{% if shop_active %} class="active" aria-current="page"{% endif %}>Shop</a>
@@ -18,7 +18,7 @@
       <a class="nav-cta{% if template.suffix == 'custom-project' %} active{% endif %}" href="/pages/custom-project"{% if template.suffix == 'custom-project' %} aria-current="page"{% endif %}>Custom Orders</a>
     </nav>
     <div class="header-actions">
-      <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collectives on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""></a>
+      <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collective on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""></a>
       <a aria-label="Search" href="{{ routes.search_url }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg></a>
       {%- if shop.customer_accounts_enabled -%}
         <a aria-label="Account" href="{{ routes.account_url }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M3 21v-2a9 9 0 0 1 18 0v2Z"/></svg></a>
@@ -38,7 +38,7 @@
       {%- if shop.customer_accounts_enabled -%}<a href="{{ routes.account_url }}">Account</a>{%- endif -%}
       <a href="{{ routes.cart_url }}">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</a>
     </span>
-    <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collectives on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""><span>@commanddeckllc</span></a>
+    <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collective on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""><span>@commanddeckllc</span></a>
   </nav>
 </header>
 

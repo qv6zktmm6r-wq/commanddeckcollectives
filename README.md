@@ -1,6 +1,6 @@
-# Command Deck Collectives LLC
+# Command Deck Collective LLC
 
-Complete website source and assets for the approved black-and-gold Command Deck Collectives storefront.
+Complete website source and assets for the approved black-and-gold Command Deck Collective storefront.
 
 ## Current preview
 
