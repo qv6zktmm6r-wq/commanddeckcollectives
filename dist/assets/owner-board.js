@@ -41,7 +41,7 @@
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
   });
 
-  const state = { orders: [], query: '', showArchived: false, filter: null, editing: null, recovering: false, loadedFor: null };
+  const state = { orders: [], query: '', showArchived: false, filter: null, editing: null, recovering: false, changingPassword: false, loadedFor: null };
 
   function show(view) {
     for (const section of document.querySelectorAll('[data-view]')) section.hidden = section.dataset.view !== view;
@@ -68,7 +68,8 @@
   // ---- Auth ----
   async function route(session) {
     showError('');
-    if (state.recovering) return show('set-password');
+    if (state.recovering) return openPasswordForm(false);
+    if (state.changingPassword && session) return;
     if (!session) {
       state.orders = []; state.loadedFor = null;
       document.dispatchEvent(new CustomEvent('cd:owner-signed-out'));
@@ -86,7 +87,7 @@
 
   db.auth.onAuthStateChange((event, session) => {
     if (event === 'PASSWORD_RECOVERY') state.recovering = true;
-    if (event === 'SIGNED_OUT') { state.recovering = false; state.loadedFor = null; }
+    if (event === 'SIGNED_OUT') { state.recovering = false; state.changingPassword = false; state.loadedFor = null; }
     if (['INITIAL_SESSION', 'SIGNED_IN', 'SIGNED_OUT', 'PASSWORD_RECOVERY'].includes(event)) setTimeout(() => route(session), 0);
   });
 
@@ -117,15 +118,54 @@
       : 'If that email belongs to an owner account, a reset link is on its way. Open it on this device.';
   });
 
+  // The same form serves a reset link (recovering) and "Change password" while signed in; the latter asks for the
+  // current password first so an unlocked phone left signed in can't be used to lock the owner out.
+  const notice = $('[data-notice]');
+  const showNotice = (text) => { notice.textContent = text; notice.hidden = false; setTimeout(() => { notice.hidden = true; }, 6000); };
+
+  function openPasswordForm(changing) {
+    state.changingPassword = changing;
+    const form = $('[data-set-password-form]');
+    form.reset();
+    for (const node of document.querySelectorAll('[data-current-password]')) node.hidden = !changing;
+    form.current.required = changing;
+    $('[data-cancel-password]').hidden = !changing;
+    $('#set-pw-h').textContent = changing ? 'Change your password' : 'Set a new password';
+    $('[data-set-password-message]').textContent = '';
+    show('set-password');
+    (changing ? form.current : form.password).focus();
+  }
+
+  $('[data-change-password]').addEventListener('click', () => openPasswordForm(true));
+  $('[data-cancel-password]').addEventListener('click', () => { state.changingPassword = false; show('board'); });
+
   $('[data-set-password-form]').addEventListener('submit', async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     const message = $('[data-set-password-message]');
-    if (form.password.value.length < 12) { message.textContent = 'Use at least 12 characters.'; return; }
+    const button = form.querySelector('[type="submit"]');
+    if (state.changingPassword && !form.current.value) { message.textContent = 'Enter your current password.'; form.current.focus(); return; }
+    if (form.password.value.length < 12) { message.textContent = 'Use at least 12 characters.'; form.password.focus(); return; }
+    if (state.changingPassword && form.current.value === form.password.value) { message.textContent = 'Choose a password different from your current one.'; return; }
+    button.disabled = true;
+    message.textContent = 'Saving…';
+    if (state.changingPassword) {
+      const { data } = await db.auth.getSession();
+      const email = data.session?.user?.email;
+      const check = email ? await db.auth.signInWithPassword({ email, password: form.current.value }) : { error: true };
+      if (check.error) { button.disabled = false; message.textContent = 'Your current password isn’t right.'; form.current.focus(); return; }
+    }
     const { error } = await db.auth.updateUser({ password: form.password.value });
+    button.disabled = false;
     if (error) { message.textContent = `Couldn’t save the password: ${error.message}`; return; }
-    form.password.value = '';
+    form.reset();
     message.textContent = '';
+    if (state.changingPassword) {
+      state.changingPassword = false;
+      show('board');
+      showNotice('Password changed. Use the new one next time you sign in.');
+      return;
+    }
     state.recovering = false;
     history.replaceState(null, '', location.pathname);
     const { data } = await db.auth.getSession();

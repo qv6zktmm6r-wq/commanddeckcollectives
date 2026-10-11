@@ -16,7 +16,7 @@
   <link rel="icon" href="assets/command-deck-favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/command-deck-apple-touch-icon.png">
   <link rel="stylesheet" href="assets/owner.css?v=2">
-  <link rel="stylesheet" href="assets/owner-board.css?v=4">
+  <link rel="stylesheet" href="assets/owner-board.css?v=5">
 </head>
 <body>
 <main class="owner board-page">
@@ -28,6 +28,7 @@
 
   <p class="banner" data-offline hidden role="status">You’re offline. Changes need a connection.</p>
   <p class="banner error" data-error hidden role="alert"></p>
+  <p class="banner ok" data-notice hidden role="status"></p>
 
   <section class="auth-card" data-view="loading" aria-busy="true">
     <p class="muted">Loading…</p>
@@ -49,10 +50,13 @@
   <section class="auth-card" data-view="set-password" hidden aria-labelledby="set-pw-h">
     <h2 id="set-pw-h">Set a new password</h2>
     <form data-set-password-form novalidate>
+      <label for="cp-password" data-current-password hidden>Current password</label>
+      <input id="cp-password" name="current" type="password" autocomplete="current-password" data-current-password hidden>
       <label for="np-password">New password (at least 12 characters)</label>
       <input id="np-password" name="password" type="password" autocomplete="new-password" minlength="12" required>
       <button class="btn primary" type="submit">Save password</button>
     </form>
+    <button class="text-btn" type="button" data-cancel-password hidden>Cancel</button>
     <p class="muted small" data-set-password-message role="status"></p>
   </section>
 
@@ -99,6 +103,7 @@
         <ol class="recent-sales" data-recent-sales></ol>
       </section>
     </div>
+    <p class="account-row"><button class="text-btn" type="button" data-change-password>Change password</button></p>
   </section>
 </main>
 
@@ -198,6 +203,6 @@
 <script src="board-config.js"></script>
 <script src="assets/owner-board-parse.js?v=1"></script>
 <script src="assets/owner-stock.js?v=3"></script>
-<script src="assets/owner-board.js?v=3"></script>
+<script src="assets/owner-board.js?v=4"></script>
 </body>
 </html>

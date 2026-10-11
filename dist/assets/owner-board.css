@@ -183,3 +183,6 @@ label { display: grid; gap: 6px; color: var(--copy); font-size: 13px; font-weigh
   .stock-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tabs { max-width: 520px; }
 }
+
+/* Account */
+.account-row { margin: 28px 0 8px; text-align: center; }
