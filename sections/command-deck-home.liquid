@@ -2,6 +2,7 @@
   assign fallback_images = 'lvt-2-water-buffalo-challenge-coin.webp|category-apparel.webp|category-awards.webp|category-bulk.webp|category-custom.webp' | split: '|'
   assign fallback_alts = 'LVT-2 Water Buffalo collector coin from the Command Deck store|Custom apparel concept with branded hoodie, cap and shirt|Custom recognition concept with plaque and crystal award|Branded gift-box concept for bulk orders|Custom medallion design concept on a workbench' | split: '|'
 -%}
+<div class="cd">
 <section class="hero">
   <div class="hero-reference" aria-hidden="true"></div>
   <div class="shell hero-inner">
@@ -19,7 +20,8 @@
 
 <section class="service-strip" id="services" aria-label="What we make">
   <div class="service-grid">
-    {%- for block in section.blocks -%}
+    {%- assign service_blocks = section.blocks | where: 'type', 'service' -%}
+    {%- for block in service_blocks -%}
       {%- assign index = forloop.index0 -%}
       <a class="service-card" href="{{ block.settings.link | default: '/pages/custom-project' }}" {{ block.shopify_attributes }}>
         <span class="service-art">
@@ -61,23 +63,53 @@
       <a class="btn secondary" href="{{ routes.all_products_collection_url }}">Shop all products →</a>
     </div>
     <div class="shop-product-grid">
-      <a class="shop-product" href="/products/aav-legacy-challenge-coin">
-        <div class="shop-product-image"><img src="{{ 'aav-legacy-challenge-coin.webp' | asset_url }}" alt="AAV Legacy Collection — front and reverse design" width="1000" height="1000" loading="lazy"></div>
-        <div class="shop-product-copy"><h3>AAV Legacy Collection</h3><p>A tribute to five generations of Marine Corps amphibious vehicles.</p><span class="product-cta">View in the store <span aria-hidden="true">↗</span></span></div>
-      </a>
-      <a class="shop-product" href="/products/aztec-ega-collector-coin">
-        <div class="shop-product-image"><img src="{{ 'aztec-ega-collector-coin.webp' | asset_url }}" alt="Aztec Eagle, Globe and Anchor Collection — front and reverse design" width="1000" height="1000" loading="lazy"></div>
-        <div class="shop-product-copy"><h3>Aztec Eagle, Globe and Anchor Collection</h3><p>Aztec-inspired detail meets the Eagle, Globe, and Anchor.</p><span class="product-cta">View in the store <span aria-hidden="true">↗</span></span></div>
-      </a>
-      <a class="shop-product" href="/products/lvt-2-water-buffalo-challenge-coin">
-        <div class="shop-product-image"><img src="{{ 'lvt-2-water-buffalo-challenge-coin.webp' | asset_url }}" alt="LVT-2 Water Buffalo Collection — front and reverse design" width="1000" height="1000" loading="lazy"></div>
-        <div class="shop-product-copy"><h3>LVT-2 Water Buffalo Collection</h3><p>A collectible honoring the Water Buffalo and its amphibious heritage.</p><span class="product-cta">View in the store <span aria-hidden="true">↗</span></span></div>
-      </a>
+      {%- liquid
+        assign product_blocks = section.blocks | where: 'type', 'product'
+        assign fallback_handles = 'aav-legacy-challenge-coin|aztec-ega-collector-coin|lvt-2-water-buffalo-challenge-coin' | split: '|'
+        assign fallback_titles = 'AAV Legacy Collection|Aztec Eagle, Globe and Anchor Collection|LVT-2 Water Buffalo Collection' | split: '|'
+        assign fallback_text = 'A tribute to five generations of Marine Corps amphibious vehicles.|Aztec-inspired detail meets the Eagle, Globe, and Anchor.|A collectible honoring the Water Buffalo and its amphibious heritage.' | split: '|'
+        assign live_count = 0
+        for block in product_blocks
+          if block.settings.product != blank
+            assign live_count = live_count | plus: 1
+          endif
+        endfor
+      -%}
+      {%- if live_count > 0 -%}
+        {%- for block in product_blocks -%}
+          {%- assign product = block.settings.product -%}
+          {%- if product != blank -%}
+            <a class="shop-product" href="{{ product.url }}" {{ block.shopify_attributes }}>
+              <div class="shop-product-image">
+                {%- if product.featured_image -%}
+                  {%- assign product_alt = product.featured_image.alt | default: product.title -%}
+                  {{ product.featured_image | image_url: width: 1000 | image_tag: widths: '400, 600, 800, 1000', sizes: '(max-width: 700px) 100vw, 33vw', loading: 'lazy', alt: product_alt }}
+                {%- endif -%}
+              </div>
+              <div class="shop-product-copy">
+                <h3>{{ product.title | escape }}</h3>
+                <p>{{ block.settings.text | default: product.description | strip_html | truncatewords: 16 }}</p>
+                <span class="product-cta">
+                  <span>{% if product.available %}{{ product.price | money }}{% else %}Sold out{% endif %}</span>
+                  <span>View <span aria-hidden="true">↗</span></span>
+                </span>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for handle in fallback_handles -%}
+          <a class="shop-product" href="/products/{{ handle }}">
+            <div class="shop-product-image"><img src="{{ handle | append: '.webp' | asset_url }}" alt="{{ fallback_titles[forloop.index0] }} — front and reverse design" width="1000" height="1000" loading="lazy"></div>
+            <div class="shop-product-copy"><h3>{{ fallback_titles[forloop.index0] }}</h3><p>{{ fallback_text[forloop.index0] }}</p><span class="product-cta">View in the store <span aria-hidden="true">↗</span></span></div>
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 </section>
 
-<section class="content-section" id="our-work">
+<section class="content-section" id="how-it-works">
   <div class="shell">
     <div class="section-head">
       <span class="section-kicker">From concept to finished piece</span>
@@ -95,7 +127,7 @@
 
 <section class="about-band" id="about">
   <div class="shell about-grid">
-    <div class="about-mark"><img src="{{ 'command-deck-logo.webp' | asset_url }}" alt="{{ shop.name | escape }} crest" width="259" height="230" loading="lazy"></div>
+    <div class="about-mark"><img src="{{ 'command-deck-logo.webp' | asset_url }}" alt="{{ shop.name | escape }} crest" width="1036" height="920" loading="lazy"></div>
     <div>
       <span class="section-kicker">Command Deck Collectives LLC</span>
       <h2>More than products. A higher purpose.</h2>
@@ -113,10 +145,11 @@
         <h2>Bring us the story. We’ll help build the piece.</h2>
         <p>Tell Command Deck what you want to create. Include the quantity, timeline and the meaning behind the project.</p>
       </div>
-      {%- render 'contact-form', form_id: 'ContactForm-home' -%}
+      {%- render 'cd-contact-form', form_id: 'ContactForm-home' -%}
     </div>
   </div>
 </section>
+</div>
 
 {% schema %}
 {
@@ -143,9 +176,18 @@
         { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave empty to use the bundled category art." },
         { "type": "checkbox", "id": "concept_label", "label": "Show \"Design concept\" label on uploaded image", "default": false }
       ]
+    },
+    {
+      "type": "product",
+      "name": "Featured product",
+      "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "text", "label": "Short description", "info": "Leave empty to use the start of the product description." }
+      ]
     }
   ],
-  "max_blocks": 5,
+  "max_blocks": 8,
   "presets": [
     {
       "name": "Command Deck homepage",

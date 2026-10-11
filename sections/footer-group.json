@@ -1,0 +1,13 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "cd-footer": {
+      "type": "cd-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "cd-footer"
+  ]
+}

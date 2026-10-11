@@ -1,0 +1,13 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "cd-header": {
+      "type": "cd-header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "cd-header"
+  ]
+}

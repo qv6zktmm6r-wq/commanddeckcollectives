@@ -1,17 +1,26 @@
 
 # Shopify installation plan
 
-This repository is structured as a Shopify Online Store theme and includes a standalone preview.
+This repository is a complete Shopify Online Store 2.0 theme built on Dawn, plus a standalone preview. Dawn provides the product, collection, cart, search, account, blog, policy and password pages; Command Deck provides the header, footer, homepage, custom-project page and black-and-gold color schemes.
 
 ## Before touching the live store
 1. Export or duplicate the current live Shopify theme.
-2. Create a new unpublished theme for Command Deck.
-3. Upload or connect this repository to that unpublished theme.
-4. Create a Shopify page with the handle custom-project and assign the page.custom-project template.
-5. In the theme editor, verify the homepage buttons and service-card links.
-6. Replace generic service artwork with approved product photography when the owner provides it (each homepage Service block has an Image picker; empty blocks fall back to the bundled art).
-7. Test desktop, mobile, cart, search, account links, contact-form delivery and collection links.
-8. Only publish after owner approval.
+2. Upload this repository as a new **unpublished** theme (for example `shopify theme push --unpublished`, or connect the GitHub branch in Online Store → Themes).
+3. Create a Shopify page with the handle `custom-project` and assign the `page.custom-project` template.
+4. In the theme editor, check the homepage:
+   - Each "Featured product" block should point at the right product (the defaults are the three coin handles). Empty or unpublished products fall back to the bundled photos.
+   - Each Service block has an Image picker; replace the generic art with approved product photography when the owner provides it.
+5. Test desktop, mobile, add to cart (opens the cart page), search, account links, policy links, contact-form delivery and collection links.
+6. Only publish after owner approval.
+
+## Theme notes
+- The cart is set to "Page". The custom header has no drawer or popup, so keep that setting.
+- Headings and body text use the Command Deck fonts set in `assets/command-deck.css`, so the theme editor's Typography settings have no visible effect.
+- The header's Account link only appears when customer accounts are enabled.
+- Updating Dawn: Dawn files are unmodified apart from `layout/theme.liquid` (loads `command-deck.css`/`.js`, hero preload and Organization JSON-LD), `sections/cart-icon-bubble.liquid`, the section groups, `config/` and `templates/index.json`.
+
+## Alternative: keep the current Spotlight theme
+The live store runs Spotlight, which is also built on Dawn. Instead of switching themes you can copy into a duplicate of it: `sections/command-deck-home.liquid`, `sections/custom-project.liquid`, `sections/cd-header.liquid`, `sections/cd-footer.liquid`, `snippets/cd-contact-form.liquid`, `snippets/cd-cart-icon.liquid`, `assets/command-deck.*` and the WebP images, then add the stylesheet/script lines from `layout/theme.liquid`.
 
 ## Domain
 No DNS changes are required if the storefront continues using the existing Shopify store and domain. The new theme can replace the existing published theme after approval.
