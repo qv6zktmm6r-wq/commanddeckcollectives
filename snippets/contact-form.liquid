@@ -10,9 +10,9 @@
     <div class="form-status error full" role="alert">{{ form.errors | default_errors }}</div>
   {%- endif -%}
   <label class="visually-hidden" for="{{ form_id }}-name">Name</label>
-  <input id="{{ form_id }}-name" name="contact[name]" autocomplete="name" placeholder="Name" value="{{ form.name }}" required>
+  <input id="{{ form_id }}-name" name="contact[name]" autocomplete="name" placeholder="Name" value="{{ form.name | escape }}" required>
   <label class="visually-hidden" for="{{ form_id }}-email">Email</label>
-  <input id="{{ form_id }}-email" name="contact[email]" type="email" autocomplete="email" placeholder="Email" value="{{ form.email }}" required>
+  <input id="{{ form_id }}-email" name="contact[email]" type="email" autocomplete="email" placeholder="Email" value="{{ form.email | escape }}" required>
   <label class="visually-hidden" for="{{ form_id }}-org">Unit, business or organization</label>
   <input id="{{ form_id }}-org" name="contact[organization]" autocomplete="organization" placeholder="Unit / business / organization">
   <label class="visually-hidden" for="{{ form_id }}-type">Project type</label>
@@ -31,6 +31,6 @@
     <input id="{{ form_id }}-needed-by" name="contact[needed_by]" placeholder="Needed-by date">
   {%- endif -%}
   <label class="visually-hidden" for="{{ form_id }}-body">Project details</label>
-  <textarea id="{{ form_id }}-body" class="full" name="contact[body]" placeholder="{{ placeholder | default: 'Tell us about the project, quantity, timeline, and what you want it to represent.' }}" required>{{ form.body }}</textarea>
+  <textarea id="{{ form_id }}-body" class="full" name="contact[body]" placeholder="{{ placeholder | default: 'Tell us about the project, quantity, timeline, and what you want it to represent.' }}" required>{{ form.body | escape }}</textarea>
   <button class="btn primary full" type="submit">{{ submit_label | default: 'Start a Custom Project' }} →</button>
 {%- endform -%}
