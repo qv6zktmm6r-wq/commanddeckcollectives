@@ -10,6 +10,8 @@ This repository is a complete Shopify Online Store 2.0 theme built on Dawn, plus
 4. In the theme editor, check the homepage:
    - Each "Featured product" block should point at the right product (the defaults are the three coin handles). Empty or unpublished products fall back to the bundled photos.
    - Each Service block has an Image picker; replace the generic art with approved product photography when the owner provides it.
+   - Add "Gallery photo" blocks (up to 12) to show a Recent work gallery after the featured products, and "Testimonial" blocks (up to 6) to show quotes after How it works. Both stay hidden until they have content. Use real customer words only, with permission.
+   - Optional: upload a Favicon (Theme settings) and a Social sharing image (Online Store → Preferences). Without them the theme uses the bundled crest icons and `command-deck-share.jpg`.
 5. Test desktop, mobile, add to cart (opens the cart page), search, account links, policy links, contact-form delivery and collection links.
 6. Only publish after owner approval.
 
@@ -17,7 +19,8 @@ This repository is a complete Shopify Online Store 2.0 theme built on Dawn, plus
 - The cart is set to "Page". The custom header has no drawer or popup, so keep that setting.
 - Headings and body text use the Command Deck fonts set in `assets/command-deck.css`, so the theme editor's Typography settings have no visible effect.
 - The header's Account link only appears when customer accounts are enabled.
-- Updating Dawn: Dawn files are unmodified apart from `layout/theme.liquid` (loads `command-deck.css`/`.js`, hero preload and Organization JSON-LD), `sections/cart-icon-bubble.liquid`, the section groups, `config/` and `templates/index.json`.
+- Custom-order requests arrive through Shopify's contact form; the quantity, needed-by date and budget fields appear in the notification email. Shopify's contact form cannot accept file uploads.
+- Updating Dawn: Dawn files are unmodified apart from `layout/theme.liquid` (loads `command-deck.css`/`.js`, fallback favicons, hero preload and Organization JSON-LD), `snippets/meta-tags.liquid` (fallback share image), `sections/cart-icon-bubble.liquid`, the section groups, `config/` and `templates/index.json`.
 
 ## Alternative: keep the current Spotlight theme
 The live store runs Spotlight, which is also built on Dawn. Instead of switching themes you can copy into a duplicate of it: `sections/command-deck-home.liquid`, `sections/custom-project.liquid`, `sections/cd-header.liquid`, `sections/cd-footer.liquid`, `snippets/cd-contact-form.liquid`, `snippets/cd-cart-icon.liquid`, `assets/command-deck.*` and the WebP images, then add the stylesheet/script lines from `layout/theme.liquid`.

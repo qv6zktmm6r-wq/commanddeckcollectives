@@ -7,7 +7,7 @@
 <header class="site-header cd">
   <div class="shell header-inner">
     <a class="brand" href="{{ routes.root_url }}">
-      <span class="brand-mark"><img src="{{ 'command-deck-logo-518.webp' | asset_url }}" alt="" width="518" height="460"></span>
+      <span class="brand-mark"><img src="{{ 'command-deck-logo-160.webp' | asset_url }}" srcset="{{ 'command-deck-logo-160.webp' | asset_url }} 160w, {{ 'command-deck-logo-518.webp' | asset_url }} 518w" sizes="77px" alt="" width="518" height="460"></span>
       <span class="brand-label">Command Deck<br>Collective</span>
     </a>
     <nav class="nav" aria-label="Primary">
@@ -38,7 +38,7 @@
       {%- if shop.customer_accounts_enabled -%}<a href="{{ routes.account_url }}">Account</a>{%- endif -%}
       <a href="{{ routes.cart_url }}">Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</a>
     </span>
-    <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="Command Deck Collective on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""><span>@commanddeckllc</span></a>
+    <a class="instagram-link" href="https://www.instagram.com/commanddeckllc/" target="_blank" rel="noopener noreferrer" aria-label="@commanddeckllc on Instagram (opens in a new tab)"><img src="{{ 'instagram.svg' | asset_url }}" width="25" height="25" alt=""><span>@commanddeckllc</span></a>
   </nav>
 </header>
 

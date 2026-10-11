@@ -1,5 +1,5 @@
 {%- liquid
-  assign fallback_images = 'lvt-2-water-buffalo-challenge-coin.webp|category-apparel.webp|category-awards.webp|category-bulk.webp|category-custom.webp' | split: '|'
+  assign fallback_images = 'lvt-2-water-buffalo-challenge-coin|category-apparel|category-awards|category-bulk|category-custom' | split: '|'
   assign fallback_alts = 'LVT-2 Water Buffalo collector coin from the Command Deck store|Custom apparel concept with branded hoodie, cap and shirt|Custom recognition concept with plaque and crystal award|Branded gift-box concept for bulk orders|Custom medallion design concept on a workbench' | split: '|'
 -%}
 <div class="cd">
@@ -18,7 +18,8 @@
   </div>
 </section>
 
-<section class="service-strip" id="services" aria-label="What we make">
+<section class="service-strip" id="services" aria-labelledby="services-heading">
+  <h2 class="visually-hidden" id="services-heading">What we make</h2>
   <div class="service-grid">
     {%- assign service_blocks = section.blocks | where: 'type', 'service' -%}
     {%- for block in service_blocks -%}
@@ -27,12 +28,14 @@
         <span class="service-art">
           {%- if block.settings.image != blank -%}
             {%- assign art_alt = block.settings.image.alt | default: block.settings.title -%}
-            {{ block.settings.image | image_url: width: 960 | image_tag: widths: '480, 720, 960', sizes: '(max-width: 700px) 50vw, (max-width: 1000px) 33vw, 20vw', alt: art_alt }}
+            {{ block.settings.image | image_url: width: 960 | image_tag: widths: '480, 720, 960', sizes: '(max-width: 700px) 50vw, (max-width: 1000px) 33vw, 20vw', loading: 'lazy', alt: art_alt }}
             {%- if block.settings.concept_label -%}<small class="concept-label">Design concept</small>{%- endif -%}
           {%- elsif index == 0 -%}
-            <img src="{{ fallback_images[index] | asset_url }}" alt="{{ fallback_alts[index] }}" width="1000" height="1000">
+            {%- assign art = fallback_images[index] -%}
+            <img src="{{ art | append: '.webp' | asset_url }}" srcset="{{ art | append: '-500.webp' | asset_url }} 500w, {{ art | append: '.webp' | asset_url }} 1000w" sizes="(max-width: 700px) 50vw, (max-width: 1000px) 33vw, 20vw" loading="lazy" decoding="async" alt="{{ fallback_alts[index] }}" width="1000" height="1000">
           {%- elsif fallback_images[index] -%}
-            <img src="{{ fallback_images[index] | asset_url }}" alt="{{ fallback_alts[index] }}" width="960" height="640">
+            {%- assign art = fallback_images[index] -%}
+            <img src="{{ art | append: '.webp' | asset_url }}" srcset="{{ art | append: '-480.webp' | asset_url }} 480w, {{ art | append: '.webp' | asset_url }} 960w" sizes="(max-width: 700px) 50vw, (max-width: 1000px) 33vw, 20vw" loading="lazy" decoding="async" alt="{{ fallback_alts[index] }}" width="960" height="640">
             <small class="concept-label">Design concept</small>
           {%- endif -%}
         </span>
@@ -100,7 +103,7 @@
       {%- else -%}
         {%- for handle in fallback_handles -%}
           <a class="shop-product" href="/products/{{ handle }}">
-            <div class="shop-product-image"><img src="{{ handle | append: '.webp' | asset_url }}" alt="{{ fallback_titles[forloop.index0] }} — front and reverse design" width="1000" height="1000" loading="lazy"></div>
+            <div class="shop-product-image"><img src="{{ handle | append: '.webp' | asset_url }}" srcset="{{ handle | append: '-500.webp' | asset_url }} 500w, {{ handle | append: '.webp' | asset_url }} 1000w" sizes="(max-width: 700px) 100vw, 33vw" alt="{{ fallback_titles[forloop.index0] }} — front and reverse design" width="1000" height="1000" loading="lazy"></div>
             <div class="shop-product-copy"><h3>{{ fallback_titles[forloop.index0] }}</h3><p>{{ fallback_text[forloop.index0] }}</p><span class="product-cta">View in the store <span aria-hidden="true">↗</span></span></div>
           </a>
         {%- endfor -%}
