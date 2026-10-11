@@ -1,0 +1,6 @@
+# Supabase CLI settings for this repository. Only the Edge Function setting below differs from the CLI defaults.
+project_id = "command-deck-owner"
+
+[functions.shopify-stock]
+# The function checks the caller's sign-in and owner status itself (handler.ts).
+verify_jwt = false

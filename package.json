@@ -4,7 +4,7 @@
   "description": "Command Deck Collective Shopify theme (Dawn-based) and static preview",
   "license": "UNLICENSED",
   "scripts": {
-    "test": "node tests/render-sections.js && node tests/board-parse.js",
+    "test": "node tests/render-sections.js && node tests/board-parse.js && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/stock-function.mjs",
     "theme-check": "npx --yes @shopify/cli@4.9.3 theme check --path . --fail-level error",
     "build": "bash scripts/build-dist.sh",
     "check-vendor": "cmp preview/supabase-2.117.2.js node_modules/@supabase/supabase-js/dist/umd/supabase.js"

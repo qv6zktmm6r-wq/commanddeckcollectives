@@ -1,5 +1,5 @@
 // Keeps the owner app's own screen available offline. It never caches Shopify, Gmail, Supabase data or any other site.
-const CACHE = 'cd-owner-v4';
+const CACHE = 'cd-owner-v5';
 const SHELL = ['owner.html', 'owner.js', 'owner.webmanifest', 'assets/owner.css?v=2', 'assets/owner-icon-192.png'];
 
 self.addEventListener('install', (event) => {
