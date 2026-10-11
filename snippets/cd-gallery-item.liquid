@@ -1,0 +1,41 @@
+{%- comment -%}
+  One uncropped gallery photo that opens in the photo viewer (cd-lightbox).
+  Pass either `image` (an uploaded image) or `asset_name` (a bundled .webp with a -500.webp variant).
+  Optional: `block`, `title`, `details`, `alt` (bundled images only), `sizes`.
+{%- endcomment -%}
+{%- liquid
+  if image != blank
+    assign full_src = image | image_url: width: 1800
+    assign item_alt = image.alt | default: ''
+  else
+    assign full_src = asset_name | append: '.webp' | asset_url
+    assign item_alt = alt | default: ''
+  endif
+  if item_alt == title
+    assign item_alt = ''
+  endif
+  assign caption = title | default: ''
+  if details != blank
+    if caption != blank
+      assign caption = caption | append: ' — '
+    endif
+    assign caption = caption | append: details
+  endif
+-%}
+<li class="gallery-item"{% if block %} {{ block.shopify_attributes }}{% endif %}>
+  <figure>
+    <a class="gallery-open" href="{{ full_src }}" data-lightbox-item data-caption="{{ caption | escape }}" aria-label="View larger photo{% if title != blank %}: {{ title | escape }}{% endif %}">
+      {%- if image != blank -%}
+        {{ image | image_url: width: 1200 | image_tag: widths: '400, 600, 800, 1200', sizes: sizes, loading: 'lazy', alt: item_alt }}
+      {%- else -%}
+        <img src="{{ asset_name | append: '.webp' | asset_url }}" srcset="{{ asset_name | append: '-500.webp' | asset_url }} 500w, {{ asset_name | append: '.webp' | asset_url }} 1000w" sizes="{{ sizes }}" width="1000" height="1000" loading="lazy" alt="{{ item_alt | escape }}">
+      {%- endif -%}
+    </a>
+    {%- if title != blank or details != blank -%}
+      <figcaption class="gallery-caption">
+        {%- if title != blank -%}<strong>{{ title | escape }}</strong>{%- endif -%}
+        {%- if details != blank -%}<span>{{ details | escape }}</span>{%- endif -%}
+      </figcaption>
+    {%- endif -%}
+  </figure>
+</li>

@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
-# Rebuilds dist/ (the static Sites output) from preview/index.html and the assets it references.
+# Rebuilds dist/ (the static Sites output) from the preview/*.html pages and the assets they reference.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 rm -rf dist
 mkdir -p dist/assets
-sed 's#\.\./assets/#assets/#g' preview/index.html > dist/index.html
+for page in preview/*.html; do
+  sed 's#\.\./assets/#assets/#g' "$page" > "dist/$(basename "$page")"
+done
 
-# assets/ also holds the Shopify theme's files; copy only what the static page and its stylesheet use.
+# assets/ also holds the Shopify theme's files; copy only what the static pages and their stylesheet use.
 for file in assets/*; do
   name="$(basename "$file")"
-  if grep -q "$name" preview/index.html assets/command-deck.css; then
+  if grep -q "$name" preview/*.html assets/command-deck.css; then
     cp "$file" dist/assets/
   fi
 done

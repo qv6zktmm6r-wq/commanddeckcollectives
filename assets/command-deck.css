@@ -224,11 +224,11 @@ body.cd { margin: 0; background: var(--ink); }
   display: block;
   overflow: hidden;
   isolation: isolate;
-  aspect-ratio: 292 / 156;
+  aspect-ratio: 3 / 2;
   background: #111;
 }
 .service-art img { width: 100%; height: 100%; object-fit: cover; }
-.service-card:first-child .service-art img { object-position: center 53%; }
+.service-card:first-child .service-art img { object-position: center 52%; }
 .concept-label {
   position: absolute;
   right: 7px;
@@ -308,16 +308,41 @@ body.cd { margin: 0; background: var(--ink); }
 .process-card .num { color: var(--gold-bright); font-family: var(--serif); font-size: 44px; }
 .process-card h3 { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
 
-/* Gallery and testimonials (Shopify only; render once real content is added) */
+/* Gallery (homepage teaser and Our Work page) and testimonials */
 
-.gallery-grid,
-.testimonial-grid { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
-.gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.gallery-item,
+/* Masonry columns keep every photo at its own shape, so nothing is cropped. */
+.gallery-grid { margin: 0; padding: 0; list-style: none; columns: 4 220px; column-gap: 18px; }
+.work-grid { columns: 3 260px; }
+.gallery-item { break-inside: avoid; margin: 0 0 22px; }
 .gallery-item figure { margin: 0; }
-.gallery-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); }
+.gallery-open { display: block; cursor: zoom-in; }
+.gallery-open img { width: 100%; border: 1px solid var(--line); transition: filter .2s ease; }
+.gallery-open:hover img { filter: brightness(1.12); }
+.cd .gallery-open:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
 .gallery-caption { margin: 10px 0 0; color: var(--copy); font-size: 14px; line-height: 1.5; }
-.testimonial-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gallery-caption strong { display: block; color: #fff; font-weight: 600; }
+.gallery-caption span { display: block; }
+.gallery-more { margin-top: 10px; }
+.work-editor-note { margin: -10px 0 30px; padding: 14px 18px; border: 1px dashed var(--line); color: var(--copy); }
+.work-cta { margin-top: 40px; padding-top: 36px; border-top: 1px solid var(--line); text-align: center; }
+.work-cta p { margin: 0 0 18px; color: #fff; font-family: var(--serif); font-size: clamp(22px, 2.4vw, 30px); }
+
+.lightbox { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(3, 3, 3, .94); color: #fff; }
+.lightbox[open] { display: grid; place-items: center; }
+.lightbox::backdrop { background: rgba(0, 0, 0, .6); }
+.lightbox figure { margin: 0; padding: 70px 76px 24px; text-align: center; }
+.lightbox img { display: block; max-width: min(100%, 1400px); max-height: calc(100vh - 150px); width: auto; height: auto; margin: 0 auto; }
+.lightbox figcaption { margin-top: 14px; color: var(--copy); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 15px; }
+.lightbox button { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid rgba(218, 180, 83, .45); border-radius: 50%; background: rgba(0, 0, 0, .7); color: var(--gold-bright); font: 300 30px/1 Inter, ui-sans-serif, system-ui, sans-serif; cursor: pointer; }
+.lightbox button:hover { background: #1a160e; }
+.lightbox button:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+.lightbox button[hidden] { display: none; }
+.lightbox-close { top: 16px; right: 16px; }
+.lightbox-nav { top: 50%; transform: translateY(-50%); }
+.lightbox-nav.prev { left: 14px; }
+.lightbox-nav.next { right: 14px; }
+
+.testimonial-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
 .testimonial-card { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; padding: 30px; border: 1px solid var(--line); background: #0b0a09; }
 .testimonial-card blockquote { margin: 0; padding: 0; border: 0; color: #fff; font-family: var(--serif); font-size: 20px; font-style: normal; line-height: 1.5; }
 .testimonial-card blockquote::before { content: "“"; display: block; color: var(--gold-bright); font-size: 48px; line-height: .8; }
@@ -474,7 +499,6 @@ textarea:focus-visible {
   .shop-product-copy { padding: 18px; }
   .shop-product h3 { font-size: 22px; }
   .process-grid { grid-template-columns: 1fr 1fr; }
-  .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .testimonial-grid { grid-template-columns: 1fr; }
   .about-grid,
   .contact-card { grid-template-columns: 1fr; }
@@ -510,15 +534,12 @@ textarea:focus-visible {
   .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .service-card:nth-child(n),
   .trust-item:nth-child(n) { grid-column: auto; }
-  .service-art { aspect-ratio: 4 / 3; }
   .concept-label { right: 5px; bottom: 5px; font-size: 7px; }
   .service-info { padding: 11px 10px 13px; min-height: 82px; }
   .service-info h3 { font-size: 11px; line-height: 1.4; letter-spacing: .05em; }
   .service-info p { max-width: 85%; font-size: 11px; }
   .service-info .arrow { right: 10px; bottom: 16px; }
   .service-card:last-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
-  .service-card:last-child .service-art { align-self: stretch; min-height: 140px; aspect-ratio: auto; }
-  .service-card:last-child .service-art img { position: absolute; inset: 0; }
   .service-card:last-child .service-info { padding: 14px; }
 
   .trust { margin: 0 10px; }
@@ -541,7 +562,14 @@ textarea:focus-visible {
 
 @media (max-width: 620px) {
   .btn { width: 100%; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .gallery-grid { columns: 2; column-gap: 12px; }
+  .gallery-item { margin-bottom: 16px; }
+  .gallery-caption { font-size: 13px; }
+  .lightbox figure { padding: 70px 12px 84px; }
+  .lightbox img { max-height: calc(100vh - 190px); }
+  .lightbox-nav { top: auto; bottom: 18px; transform: none; }
+  .lightbox-nav.prev { left: calc(50% - 60px); }
+  .lightbox-nav.next { right: calc(50% - 60px); }
   .process-grid,
   .contact-form { grid-template-columns: 1fr; }
   .contact-form .full { grid-column: auto; }

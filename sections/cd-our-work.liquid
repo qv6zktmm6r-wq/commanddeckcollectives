@@ -1,0 +1,76 @@
+{%- liquid
+  assign photo_count = 0
+  for block in section.blocks
+    if block.settings.image != blank
+      assign photo_count = photo_count | plus: 1
+    endif
+  endfor
+  assign sample_assets = 'aav-legacy-challenge-coin|aztec-ega-collector-coin|lvt-2-water-buffalo-challenge-coin' | split: '|'
+  assign sample_titles = 'AAV Legacy Collection|Aztec Eagle, Globe and Anchor Collection|LVT-2 Water Buffalo Collection' | split: '|'
+  assign sample_alts = 'AAV Legacy challenge coin, front and reverse|Aztec Eagle, Globe and Anchor challenge coin, front and reverse|LVT-2 Water Buffalo challenge coin, front and reverse' | split: '|'
+  assign photo_sizes = '(max-width: 620px) 50vw, (max-width: 1000px) 33vw, 30vw'
+-%}
+<div class="cd">
+  <section class="content-section work-page">
+    <div class="shell">
+      <div class="section-head">
+        {%- if section.settings.kicker != blank -%}<span class="section-kicker">{{ section.settings.kicker | escape }}</span>{%- endif -%}
+        <h1 class="intake-title">{{ section.settings.heading | escape }}</h1>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+
+      {%- if photo_count == 0 and request.design_mode -%}
+        <p class="work-editor-note">Add your photos: in this section, click <strong>Add block → Photo</strong> and upload. Until the first photo is added, visitors see the three store coins below.</p>
+      {%- endif -%}
+
+      <ul class="gallery-grid work-grid">
+        {%- if photo_count > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank -%}
+              {%- render 'cd-gallery-item', block: block, image: block.settings.image, title: block.settings.title, details: block.settings.details, sizes: photo_sizes -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for sample in sample_assets -%}
+            {%- render 'cd-gallery-item', asset_name: sample, title: sample_titles[forloop.index0], alt: sample_alts[forloop.index0], sizes: photo_sizes -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+
+      {%- if section.settings.cta_label != blank -%}
+        <div class="work-cta">
+          {%- if section.settings.cta_text != blank -%}<p>{{ section.settings.cta_text | escape }}</p>{%- endif -%}
+          <a class="btn primary" href="{{ section.settings.cta_link | default: '/pages/custom-project' }}">{{ section.settings.cta_label | escape }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+  {%- render 'cd-lightbox' -%}
+</div>
+
+{% schema %}
+{
+  "name": "Our work gallery",
+  "max_blocks": 50,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Small heading", "default": "Our work" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pieces we’ve made." },
+    { "type": "textarea", "id": "text", "label": "Intro text", "default": "Challenge coins, apparel, awards and engraved pieces made for units, businesses, organizations and individuals. Tap any photo to see it larger." },
+    { "type": "text", "id": "cta_text", "label": "Closing text", "default": "Have a story you want to put in someone’s hand?" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Start a Custom Project →" },
+    { "type": "url", "id": "cta_link", "label": "Button link", "info": "Leave empty to use /pages/custom-project." }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Shown uncropped. Add alt text to the image to describe what it shows." },
+        { "type": "text", "id": "title", "label": "Title", "info": "For example the unit, event or piece name." },
+        { "type": "text", "id": "details", "label": "Details", "info": "Optional, for example \"Challenge coin · 2025\"." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Our work gallery" }]
+}
+{% endschema %}

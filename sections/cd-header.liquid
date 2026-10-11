@@ -13,6 +13,7 @@
     <nav class="nav" aria-label="Primary">
       <a href="{{ routes.all_products_collection_url }}"{% if shop_active %} class="active" aria-current="page"{% endif %}>Shop</a>
       <a href="{{ routes.root_url }}#services">Services</a>
+      <a href="/pages/our-work"{% if template.suffix == 'our-work' %} class="active" aria-current="page"{% endif %}>Our Work</a>
       <a href="{{ routes.root_url }}#how-it-works">How It Works</a>
       <a href="{{ routes.root_url }}#about">About</a>
       <a class="nav-cta{% if template.suffix == 'custom-project' %} active{% endif %}" href="/pages/custom-project"{% if template.suffix == 'custom-project' %} aria-current="page"{% endif %}>Custom Orders</a>
@@ -30,6 +31,7 @@
   <nav class="mobile-panel" id="mobile-menu" data-mobile-panel aria-label="Mobile navigation">
     <a href="{{ routes.all_products_collection_url }}">Shop</a>
     <a href="{{ routes.root_url }}#services">Services</a>
+    <a href="/pages/our-work"{% if template.suffix == 'our-work' %} aria-current="page"{% endif %}>Our Work</a>
     <a href="{{ routes.root_url }}#how-it-works">How It Works</a>
     <a href="{{ routes.root_url }}#about">About</a>
     <a class="nav-cta" href="/pages/custom-project">Custom Orders</a>

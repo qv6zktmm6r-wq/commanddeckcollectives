@@ -127,23 +127,14 @@
       <ul class="gallery-grid">
         {%- for block in gallery_blocks -%}
           {%- if block.settings.image != blank -%}
-            {%- liquid
-              assign gallery_alt = block.settings.image.alt | default: ''
-              if gallery_alt == block.settings.caption
-                assign gallery_alt = ''
-              endif
-            -%}
-            <li class="gallery-item" {{ block.shopify_attributes }}>
-              <figure>
-                {{ block.settings.image | image_url: width: 900 | image_tag: widths: '450, 675, 900', sizes: '(max-width: 700px) 50vw, 25vw', loading: 'lazy', alt: gallery_alt }}
-                {%- if block.settings.caption != blank -%}<figcaption class="gallery-caption">{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
-              </figure>
-            </li>
+            {%- render 'cd-gallery-item', block: block, image: block.settings.image, title: block.settings.caption, sizes: '(max-width: 620px) 50vw, 25vw' -%}
           {%- endif -%}
         {%- endfor -%}
       </ul>
+      <a class="btn secondary gallery-more" href="/pages/our-work">See all our work →</a>
     </div>
   </section>
+  {%- render 'cd-lightbox' -%}
 {%- endif -%}
 
 <section class="content-section" id="how-it-works">
