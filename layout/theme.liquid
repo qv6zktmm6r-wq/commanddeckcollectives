@@ -19,18 +19,26 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {%- liquid
+      assign brand_name = settings.seo_brand_name | strip | default: shop.name
+      assign seo_title = page_title
+      if request.page_type == 'index' and page_title == shop.name and settings.seo_home_title != blank
+        assign seo_title = settings.seo_home_title
+      endif
+      assign seo_description = page_description | default: settings.seo_description
+    -%}
     <title>
-      {{ page_title }}
+      {{ seo_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless seo_title contains brand_name or seo_title contains shop.name %} &ndash; {{ brand_name }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+    {% if seo_description != blank %}
+      <meta name="description" content="{{ seo_description | escape }}">
     {% endif %}
 
-    {% render 'meta-tags' %}
+    {% render 'meta-tags', brand_name: brand_name, seo_title: seo_title, seo_description: seo_description %}
 
     <script type="module">
       import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';
@@ -293,7 +301,7 @@
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": {{ shop.name | json }},
+        "name": {{ brand_name | json }},
         "url": {{ request.origin | append: routes.root_url | json }},
         "logo": {{ 'command-deck-logo.webp' | asset_url | prepend: 'https:' | json }},
         "sameAs": ["https://www.instagram.com/commanddeckllc/"]

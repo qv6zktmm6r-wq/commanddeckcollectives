@@ -183,7 +183,7 @@
 
 <section class="about-band" id="about">
   <div class="shell about-grid">
-    <div class="about-mark"><img src="{{ 'command-deck-logo.webp' | asset_url }}" alt="{{ shop.name | escape }} crest" width="1036" height="920" loading="lazy"></div>
+    <div class="about-mark"><img src="{{ 'command-deck-logo.webp' | asset_url }}" alt="{{ settings.seo_brand_name | default: shop.name | escape }} crest" width="1036" height="920" loading="lazy"></div>
     <div>
       <span class="section-kicker">Command Deck Collective</span>
       <h2>More than products. A higher purpose.</h2>

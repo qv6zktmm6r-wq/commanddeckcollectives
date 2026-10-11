@@ -1,8 +1,9 @@
 {%- liquid
-  assign og_title = page_title | default: shop.name
+  assign site_name = brand_name | default: shop.name
+  assign og_title = seo_title | default: page_title | default: site_name
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = seo_description | default: page_description | default: shop.description | default: site_name
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -13,7 +14,7 @@
   endif
 %}
 
-<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:site_name" content="{{ site_name | escape }}">
 <meta property="og:url" content="{{ og_url }}">
 <meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:type" content="{{ og_type }}">

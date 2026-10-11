@@ -1301,6 +1301,36 @@
     ]
   },
   {
+    "name": "Search and sharing",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Shown in Google results and link previews. Titles and descriptions set on a product, collection, page or the homepage (Online Store → Preferences) take priority."
+      },
+      {
+        "type": "text",
+        "id": "seo_brand_name",
+        "label": "Brand name",
+        "info": "Added after page titles, for example “AAV Legacy Collection – Command Deck Collective”. Leave blank to use the store name.",
+        "default": "Command Deck Collective"
+      },
+      {
+        "type": "text",
+        "id": "seo_home_title",
+        "label": "Homepage title",
+        "info": "Used when the homepage title in Preferences is just the store name.",
+        "default": "Command Deck Collective — Custom Challenge Coins, Apparel & Awards"
+      },
+      {
+        "type": "textarea",
+        "id": "seo_description",
+        "label": "Fallback description",
+        "info": "Used on pages without their own description. Aim for under 160 characters.",
+        "default": "Veteran-owned maker of custom challenge coins, apparel, awards, engraved products and premium merchandise for units, businesses, organizations and individuals."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.social-media.name",
     "settings": [
       {

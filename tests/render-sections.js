@@ -17,6 +17,7 @@ engine.registerFilter('image_tag', function (u, ...args) {
   return `<img src="${img.src}" width="${img.width}" height="${img.height}" alt="${esc(opts.alt ?? img.alt ?? '')}"${opts.loading ? ` loading="${opts.loading}"` : ''}${opts.sizes ? ` sizes="${opts.sizes}"` : ''}>`;
 });
 engine.registerFilter('money', (cents) => `$${(cents / 100).toFixed(2)}`);
+engine.registerFilter('money_without_currency', (cents) => (cents / 100).toFixed(2));
 engine.registerFilter('t', (key, ...args) => { const o = {}; for (const a of args) if (Array.isArray(a)) o[a[0]] = a[1]; return key === 'sections.header.cart_count' ? (o.count === 1 ? '1 item' : `${o.count} items`) : key; });
 engine.registerFilter('default_errors', (errs) => `<ul>${errs.messages.map((m) => `<li>${m}</li>`).join('')}</ul>`);
 
@@ -163,6 +164,26 @@ const check = (name, cond, msg) => { if (!cond) { console.log(`FAIL ${name}: ${m
   check('header-work', /href="\/pages\/our-work" class="active" aria-current="page">Our Work/.test(hw), 'Our Work marked current on its page');
   const proj = await run('custom-project', 'sections/custom-project.liquid', {});
   check('custom-project', proj.includes('id="ContactForm-custom-project"') && proj.includes('<h1 class="intake-title">'), 'custom project page form');
+
+  const layout = read('layout/theme.liquid');
+  const headSrc = layout.slice(layout.indexOf('{%- liquid\n      assign brand_name'), layout.indexOf("{% render 'meta-tags'"));
+  const headEnd = layout.slice(layout.indexOf("{% render 'meta-tags'")).split('\n')[0];
+  const seoSettings = { seo_brand_name: 'Command Deck Collective', seo_home_title: 'Command Deck Collective — Custom Challenge Coins, Apparel & Awards', seo_description: 'Veteran-owned maker of custom challenge coins.' };
+  const head = async (ctx) => {
+    const all = { ...base, shop: { ...base.shop, name: 'Command Deck Collectives', description: 'Store description' }, canonical_url: 'https://example.com/x', current_page: 1, cart: { currency: { iso_code: 'USD' } }, settings: seoSettings, ...ctx };
+    return engine.parseAndRender(headSrc + headEnd, all, { globals: all });
+  };
+  const title = (x) => x.match(/<title>([\s\S]*?)<\/title>/)[1].replace(/\s+/g, ' ').trim();
+  h = await head({ page_title: 'Command Deck Collectives', page_description: 'Store description', request: { page_type: 'index' } });
+  check('seo-home', title(h) === 'Command Deck Collective — Custom Challenge Coins, Apparel & Awards' && h.includes('og:site_name" content="Command Deck Collective"') && h.includes('name="description" content="Store description"'), 'homepage uses brand title, keeps store description');
+  h = await head({ page_title: 'Coins for every unit', request: { page_type: 'index' } });
+  check('seo-home-custom', title(h) === 'Coins for every unit &ndash; Command Deck Collective', 'custom homepage title from Preferences wins');
+  h = await head({ page_title: 'AAV Legacy Collection', page_description: 'Honoring the Marine Corps', request: { page_type: 'product' }, product: { price: 2999 } });
+  check('seo-product', title(h) === 'AAV Legacy Collection &ndash; Command Deck Collective' && !h.includes('Collectives') && h.includes('og:type" content="product"') && h.includes('content="Honoring the Marine Corps"'), 'product title suffixed with singular brand');
+  h = await head({ page_title: 'Products', request: { page_type: 'collection' } });
+  check('seo-fallback', h.includes('name="description" content="Veteran-owned maker of custom challenge coins."') && h.includes('og:description" content="Veteran-owned maker'), 'fallback description when page has none');
+  h = await head({ page_title: 'Products', request: { page_type: 'collection' }, settings: { seo_brand_name: '', seo_home_title: '', seo_description: '' } });
+  check('seo-blank', title(h) === 'Products &ndash; Command Deck Collectives' && !h.includes('name="description"'), 'blank settings fall back to Shopify store name, no empty description');
 
   h = await run('404', 'sections/main-404.liquid', {});
   check('404', (h.match(/<h1/g) || []).length === 1 && h.includes('templates.404.title') && h.includes('href="/collections/all" class="button"') && h.includes('href="/pages/custom-project" class="button button--secondary"'), 'one h1, translated title, shop + custom project buttons');
