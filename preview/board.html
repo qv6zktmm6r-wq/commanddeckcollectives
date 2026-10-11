@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Custom Orders · Command Deck Owner</title>
+  <title>Owner Board · Command Deck Owner</title>
   <meta name="robots" content="noindex,nofollow">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://tfavgqqqagcqhfeeutzc.supabase.co wss://tfavgqqqagcqhfeeutzc.supabase.co; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
@@ -16,7 +16,7 @@
   <link rel="icon" href="../assets/command-deck-favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="../assets/command-deck-apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/owner.css?v=2">
-  <link rel="stylesheet" href="../assets/owner-board.css?v=2">
+  <link rel="stylesheet" href="../assets/owner-board.css?v=4">
 </head>
 <body>
 <main class="owner board-page">
@@ -62,17 +62,43 @@
   </section>
 
   <section data-view="board" hidden aria-labelledby="board-h">
-    <h2 id="board-h" class="visually-hidden">Order board</h2>
-    <div class="stats" data-stats></div>
-    <div class="toolbar">
-      <label class="visually-hidden" for="search">Search orders</label>
-      <input id="search" type="search" placeholder="Search name, email, item…" data-search autocomplete="off">
-      <button class="btn primary" type="button" data-new>+ New</button>
-      <button class="btn" type="button" data-paste>Paste email</button>
+    <h2 id="board-h" class="visually-hidden">Owner board</h2>
+    <nav class="tabs" aria-label="Board sections">
+      <button class="tab" type="button" data-tab="orders" aria-pressed="true">Custom orders</button>
+      <button class="tab" type="button" data-tab="stock" aria-pressed="false">Stock &amp; bulk sales</button>
+    </nav>
+
+    <div data-panel="orders">
+      <div class="stats" data-stats></div>
+      <div class="toolbar">
+        <label class="visually-hidden" for="search">Search orders</label>
+        <input id="search" type="search" placeholder="Search name, email, item…" data-search autocomplete="off">
+        <button class="btn primary" type="button" data-new>+ New</button>
+        <button class="btn" type="button" data-paste>Paste email</button>
+      </div>
+      <nav class="stage-nav" aria-label="Jump to stage" data-stage-nav></nav>
+      <div class="board" data-board></div>
+      <label class="archive-toggle"><input type="checkbox" data-show-archived> Show archived</label>
     </div>
-    <nav class="stage-nav" aria-label="Jump to stage" data-stage-nav></nav>
-    <div class="board" data-board></div>
-    <label class="archive-toggle"><input type="checkbox" data-show-archived> Show archived</label>
+
+    <div data-panel="stock" hidden>
+      <p class="banner" data-stock-status hidden role="status"></p>
+      <div class="stats" data-stock-stats></div>
+      <div class="toolbar stock-toolbar">
+        <label class="visually-hidden" for="stock-search">Search stock</label>
+        <input id="stock-search" type="search" placeholder="Search product or SKU…" data-stock-search autocomplete="off">
+        <button class="btn" type="button" data-stock-refresh>Refresh</button>
+      </div>
+      <ul class="stock-list" data-stock-list></ul>
+      <section class="stock-section" data-bundles-section hidden aria-labelledby="bundles-h">
+        <h3 id="bundles-h">Bundles</h3>
+        <ul class="stock-list" data-bundle-list></ul>
+      </section>
+      <section class="stock-section" aria-labelledby="recent-h">
+        <h3 id="recent-h">Sales recorded here</h3>
+        <ol class="recent-sales" data-recent-sales></ol>
+      </section>
+    </div>
   </section>
 </main>
 
@@ -124,6 +150,35 @@
   </form>
 </dialog>
 
+<dialog class="sheet" data-sale-dialog aria-labelledby="sale-h">
+  <form method="dialog" data-sale-form novalidate>
+    <header class="sheet-head">
+      <h2 id="sale-h">Record a sale</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close">×</button>
+    </header>
+    <p class="sale-item" data-sale-item></p>
+    <fieldset class="choice" data-sale-units>
+      <legend>Selling</legend>
+    </fieldset>
+    <div class="fields">
+      <label>How many<input name="quantity" type="number" inputmode="numeric" min="1" max="10000" step="1" value="1" required></label>
+      <label><span data-price-label>Price each ($)</span><input name="unitPrice" type="number" inputmode="decimal" min="0" step="0.01" data-sale-price></label>
+      <fieldset class="choice full">
+        <legend>Payment</legend>
+        <label><input type="radio" name="paid" value="yes" checked> Paid now</label>
+        <label><input type="radio" name="paid" value="no"> Not paid yet</label>
+      </fieldset>
+      <label class="full">Customer (optional)<input name="customer" maxlength="200" autocomplete="off"></label>
+      <label class="full">Note (optional)<textarea name="note" rows="2" maxlength="1000"></textarea></label>
+    </div>
+    <p class="sale-summary" data-sale-summary aria-live="polite"></p>
+    <p class="banner error" data-sale-error hidden role="alert"></p>
+    <footer class="sheet-actions">
+      <button class="btn primary" type="submit" value="record">Record sale</button>
+    </footer>
+  </form>
+</dialog>
+
 <datalist id="project-types">
   <option value="Challenge coins"></option>
   <option value="Apparel &amp; merchandise"></option>
@@ -142,6 +197,7 @@
 <script src="supabase-2.117.2.js"></script>
 <script src="board-config.js"></script>
 <script src="../assets/owner-board-parse.js?v=1"></script>
-<script src="../assets/owner-board.js?v=2"></script>
+<script src="../assets/owner-stock.js?v=3"></script>
+<script src="../assets/owner-board.js?v=3"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 // Custom-order board (preview/board.html). Data lives in Supabase; row-level security limits it to owner accounts.
+// Once an owner signs in it fires "cd:owner-ready" so the Stock tab (owner-stock.js) can share the session.
 // Customer text is only ever inserted with textContent / form values, never as HTML.
 (() => {
   const STAGES = [
@@ -68,13 +69,18 @@
   async function route(session) {
     showError('');
     if (state.recovering) return show('set-password');
-    if (!session) { state.orders = []; state.loadedFor = null; return show('sign-in'); }
+    if (!session) {
+      state.orders = []; state.loadedFor = null;
+      document.dispatchEvent(new CustomEvent('cd:owner-signed-out'));
+      return show('sign-in');
+    }
     if (state.loadedFor === session.user.id) return;
     const { data, error } = await db.from('owners').select('user_id').eq('user_id', session.user.id).maybeSingle();
     if (error) { show('board'); return showError(`Couldn’t check access: ${error.message}`); }
     if (!data) return show('no-access');
     state.loadedFor = session.user.id;
     show('board');
+    document.dispatchEvent(new CustomEvent('cd:owner-ready', { detail: { db, el, config } }));
     await loadOrders();
   }
 
