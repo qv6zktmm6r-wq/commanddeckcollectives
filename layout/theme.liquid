@@ -9,7 +9,11 @@
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- else -%}
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ 'command-deck-favicon-32.png' | asset_url }}">
+      <link rel="icon" type="image/png" sizes="192x192" href="{{ 'command-deck-icon-192.png' | asset_url }}">
     {%- endif -%}
+    <link rel="apple-touch-icon" href="{{ 'command-deck-apple-touch-icon.png' | asset_url }}">
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>

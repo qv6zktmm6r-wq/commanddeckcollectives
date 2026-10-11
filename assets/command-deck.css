@@ -308,6 +308,21 @@ body.cd { margin: 0; background: var(--ink); }
 .process-card .num { color: var(--gold-bright); font-family: var(--serif); font-size: 44px; }
 .process-card h3 { font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
 
+/* Gallery and testimonials (Shopify only; render once real content is added) */
+
+.gallery-grid,
+.testimonial-grid { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
+.gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.gallery-item { margin: 0; }
+.gallery-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); }
+.content-section .gallery-caption { margin: 10px 0 0; font-size: 14px; line-height: 1.5; }
+.testimonial-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.testimonial-card { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; padding: 30px; border: 1px solid var(--line); background: #0b0a09; }
+.testimonial-card blockquote { margin: 0; padding: 0; border: 0; color: #fff; font-family: var(--serif); font-size: 20px; font-style: normal; line-height: 1.5; }
+.testimonial-card blockquote::before { content: "“"; display: block; color: var(--gold-bright); font-size: 48px; line-height: .8; }
+.content-section .testimonial-author { margin: 0; color: var(--gold-bright); font-weight: 700; line-height: 1.4; }
+.testimonial-author span { display: block; color: var(--copy); font-weight: 400; font-size: 14px; }
+
 /* About and contact bands */
 
 .about-band { padding: 72px 0; background: #0b0906; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -337,7 +352,7 @@ body.cd { margin: 0; background: var(--ink); }
 }
 .intake-band { min-height: 70vh; padding-top: 110px; }
 .intake-title { margin: 16px 0; font-family: var(--serif); font-size: clamp(48px, 6vw, 82px); font-weight: 500; line-height: .95; }
-.contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; color-scheme: dark; }
 .contact-form .full { grid-column: 1 / -1; }
 .contact-form input,
 .contact-form textarea,
@@ -350,6 +365,13 @@ body.cd { margin: 0; background: var(--ink); }
   outline: none;
 }
 .contact-form textarea { min-height: 130px; resize: vertical; }
+.contact-form select {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23f1cf70' stroke-width='1.6'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+}
 .contact-form select:has(option[value=""]:checked) { color: #8f8b84; }
 .form-status { margin: 0; padding: 12px 16px; border: 1px solid var(--line); color: #e9cc8e; line-height: 1.5; }
 .form-status.error { border-color: rgba(229, 115, 96, .5); color: #f0a898; }
@@ -451,6 +473,8 @@ textarea:focus-visible {
   .shop-product-copy { padding: 18px; }
   .shop-product h3 { font-size: 22px; }
   .process-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .testimonial-grid { grid-template-columns: 1fr; }
   .about-grid,
   .contact-card { grid-template-columns: 1fr; }
 }
@@ -516,6 +540,7 @@ textarea:focus-visible {
 
 @media (max-width: 620px) {
   .btn { width: 100%; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .process-grid,
   .contact-form { grid-template-columns: 1fr; }
   .contact-form .full { grid-column: auto; }

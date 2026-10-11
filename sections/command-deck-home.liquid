@@ -109,6 +109,33 @@
   </div>
 </section>
 
+{%- assign gallery_blocks = section.blocks | where: 'type', 'gallery_image' -%}
+{%- assign gallery_count = 0 -%}
+{%- for block in gallery_blocks -%}
+  {%- if block.settings.image != blank -%}{%- assign gallery_count = gallery_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- if gallery_count > 0 -%}
+  <section class="content-section gallery-section" id="recent-work">
+    <div class="shell">
+      <div class="section-head">
+        <span class="section-kicker">Recent work</span>
+        <h2>{{ section.settings.gallery_heading }}</h2>
+      </div>
+      <ul class="gallery-grid">
+        {%- for block in gallery_blocks -%}
+          {%- if block.settings.image != blank -%}
+            {%- assign gallery_alt = block.settings.image.alt | default: block.settings.caption -%}
+            <li class="gallery-item" {{ block.shopify_attributes }}>
+              {{ block.settings.image | image_url: width: 900 | image_tag: widths: '450, 675, 900', sizes: '(max-width: 700px) 50vw, 25vw', loading: 'lazy', alt: gallery_alt }}
+              {%- if block.settings.caption != blank -%}<p class="gallery-caption">{{ block.settings.caption | escape }}</p>{%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
 <section class="content-section" id="how-it-works">
   <div class="shell">
     <div class="section-head">
@@ -124,6 +151,34 @@
     </ol>
   </div>
 </section>
+
+{%- assign testimonial_blocks = section.blocks | where: 'type', 'testimonial' -%}
+{%- assign testimonial_count = 0 -%}
+{%- for block in testimonial_blocks -%}
+  {%- if block.settings.quote != blank -%}{%- assign testimonial_count = testimonial_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- if testimonial_count > 0 -%}
+  <section class="content-section testimonials-section" id="testimonials">
+    <div class="shell">
+      <div class="section-head">
+        <span class="section-kicker">In their words</span>
+        <h2>{{ section.settings.testimonials_heading }}</h2>
+      </div>
+      <ul class="testimonial-grid">
+        {%- for block in testimonial_blocks -%}
+          {%- if block.settings.quote != blank -%}
+            <li class="testimonial-card" {{ block.shopify_attributes }}>
+              <blockquote>{{ block.settings.quote | escape | newline_to_br }}</blockquote>
+              {%- if block.settings.name != blank -%}
+                <p class="testimonial-author">{{ block.settings.name | escape }}{% if block.settings.role != blank %}<span>{{ block.settings.role | escape }}</span>{% endif %}</p>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
 
 <section class="about-band" id="about">
   <div class="shell about-grid">
@@ -162,7 +217,9 @@
     { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Start a Custom Project" },
     { "type": "url", "id": "primary_link", "label": "Primary link" },
     { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Shop Collections" },
-    { "type": "url", "id": "secondary_link", "label": "Secondary link" }
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" },
+    { "type": "text", "id": "gallery_heading", "label": "Gallery heading", "default": "Pieces we’ve made.", "info": "The gallery only appears once a Gallery photo block has an image." },
+    { "type": "text", "id": "testimonials_heading", "label": "Testimonials heading", "default": "What customers say.", "info": "Testimonials only appear once a Testimonial block has a quote. Use real customer words only." }
   ],
   "blocks": [
     {
@@ -185,9 +242,28 @@
         { "type": "product", "id": "product", "label": "Product" },
         { "type": "text", "id": "text", "label": "Short description", "info": "Leave empty to use the start of the product description." }
       ]
+    },
+    {
+      "type": "gallery_image",
+      "name": "Gallery photo",
+      "limit": 12,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Caption", "info": "Also used as the image description when the photo has no alt text." }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 6,
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "name", "label": "Name" },
+        { "type": "text", "id": "role", "label": "Unit, business or role" }
+      ]
     }
   ],
-  "max_blocks": 8,
+  "max_blocks": 26,
   "presets": [
     {
       "name": "Command Deck homepage",

@@ -10,7 +10,13 @@
   <meta property="og:site_name" content="Command Deck Collective">
   <meta property="og:title" content="Command Deck Collective — Your Story In Every Detail">
   <meta property="og:description" content="Veteran-owned maker of custom challenge coins, apparel, awards, engraved products and premium merchandise.">
-  <link rel="icon" href="assets/command-deck-logo-518.webp" type="image/webp">
+  <meta property="og:image" content="assets/command-deck-share.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/command-deck-favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/command-deck-icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="assets/command-deck-apple-touch-icon.png">
   <link rel="preload" as="image" href="assets/hero-workshop.webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/command-deck.css?v=4">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Command Deck Collective","legalName":"Command Deck Collective LLC","url":"https://commanddeckcollectives.com","sameAs":["https://www.instagram.com/commanddeckllc/"],"description":"Veteran-owned maker of custom challenge coins, apparel, awards, engraved products and premium merchandise."}</script>
@@ -182,8 +188,21 @@
             <option>Bulk order</option>
             <option>Custom project</option>
           </select>
+          <label class="visually-hidden" for="cf-quantity">Estimated quantity</label>
+          <input id="cf-quantity" name="quantity" inputmode="numeric" placeholder="Estimated quantity">
+          <label class="visually-hidden" for="cf-needed-by">Needed-by date</label>
+          <input id="cf-needed-by" name="needed_by" placeholder="Needed-by date">
+          <label class="visually-hidden" for="cf-budget">Budget range</label>
+          <select id="cf-budget" class="full" name="budget">
+            <option value="" selected>Budget range</option>
+            <option>Under $500</option>
+            <option>$500 – $1,500</option>
+            <option>$1,500 – $5,000</option>
+            <option>$5,000+</option>
+            <option>Not sure yet</option>
+          </select>
           <label class="visually-hidden" for="cf-body">Project details</label>
-          <textarea id="cf-body" class="full" name="body" placeholder="Tell us about the project, quantity, timeline, and what you want it to represent." required></textarea>
+          <textarea id="cf-body" class="full" name="body" placeholder="Tell us about the project and what you want it to represent." required></textarea>
           <button class="btn primary full" type="submit">Start a Custom Project →</button>
           <p class="form-status full" role="status" data-form-status hidden></p>
         </form>
